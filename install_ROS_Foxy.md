@@ -89,6 +89,14 @@ sudo apt install ros-foxy-desktop ros-foxy-rmw-fastrtps* ros-foxy-rmw-cyclonedds
 
 
 
+ROS2 삭제
+
+```
+sudo apt remove ~nros-foxy-* && sudo apt autoremove
+```
+
+
+
 ##### ROS2 패키지 설치 확인
 
  `talker` 퍼블리셔 노드와 `listener` 서브스크라이버 노드를 구동하여ROS2 패키지 설치를 확인해 보자.
@@ -193,13 +201,13 @@ sudo apt install --no-install-recommends -y \
 ##### 워크스페이스 폴더 생성
 
 ```
-mkdir -p ~/colcon_ws/src
+mkdir -p ~/robot_ws/src
 ```
 
 워크스페이스 폴더의 내용 확인
 
 ```
-ㅣㄴ ~/colcon_ws
+ls ~/robot_ws
 src
 
 ```
@@ -209,7 +217,7 @@ src
 빌드를 위해 워크스페이스로 경로 변경
 
 ```
-cd ~/colcon_ws
+cd ~/robot_ws
 ```
 
 
