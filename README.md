@@ -20,7 +20,7 @@
 
 ##### 1. Beginner level
 
->2. [Topic Publisher / Subscriber 작성](./rclpy_1_WritingSimplePubSub.md) 
+>2. [Topic Publisher / Subscriber 작성](./rclpy/1_WritingSimplePubSub.md) 
 >3. [Service Server / Client 작성(1/2)](./ros1_tutorial/rospy/rospy_3_WritingServiceServerClient1.md) 
 >4. [catkin + rospy 사용법(2/2) (setup.py)](./ros1_tutorial/rospy/rospy_4_How2UsePythonWithCatkin_2.md) 
 >5. [Service Server / Client 작성(2/2)](./ros1_tutorial/rospy/rospy_5_WritingServiceServerClient2.md) 
