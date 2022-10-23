@@ -4,7 +4,7 @@
 
 
 >1. ROS2 Foxy
->     1. [Ubuntu 20.04 설치 및 설정](./ros1_tutorial/ubuntu/install_ubuntu_2004_LTS.md) 
+>     1. [Ubuntu 20.04 설치 및 설정]() 
 >     2. [ROS2 Foxy 설치 및 설정](./install_ROS_Foxy.md) 
 >2. 3  운영환경 설정 팁
 
@@ -35,8 +35,8 @@
 ##### 3. 로봇 제어
 >**3.1 turtlesim**
 >
->>1. [직선 이동](./ros1_tutorial/rospy/mv_tutle_1_MoveInStraightLine.md) 
->>2. [좌, 우 회전](./ros1_tutorial/rospy/mv_tutle_2_RotateLeftRight.md) 
+>>1. [원격조종](./turtlesim/1_teleop_key.md) 
+>>2. [포즈서브스크라이버](./turtlesim/2_subscribe_turtle_pose.md) 
 >>3. [목표장소로 이동](./ros1_tutorial/rospy/mv_tutle_3_Go2Goal.md) 
 >
 >**3.2 Turtlebot 3**

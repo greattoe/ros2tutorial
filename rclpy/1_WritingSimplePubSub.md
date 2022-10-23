@@ -270,7 +270,7 @@ setup(
 cd ~/robot_ws
 ```
 
-워크 스페이스의 노든 패키지 빌드
+워크 스페이스의 노드 패키지 빌드
 
 ```
 colcon build --symlink-install
