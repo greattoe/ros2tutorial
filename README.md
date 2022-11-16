@@ -9,9 +9,9 @@
 >2. 3  운영환경 설정 팁
 
 
->  1. [PC 핫스팟 설정](./ros1_tutorial/turtlebot3/tb3_1_set_hotspot_on_1804.md) 
->  2. [SBC 시리얼 콘솔](./ros1_tutorial/turtlebot3/tb3_2_RPi_serial_console.md)  
->  3. [udev rules](./ros1_tutorial/turtlebot3/tb3_3_RPi_udev_rules.md)
+>  1. [PC 핫스팟 설정](./turtlebot3/tb3_1_set_hotspot_on_1804.md) 
+>  2. [SBC 시리얼 콘솔](./turtlebot3/tb3_2_RPi_serial_console.md)  
+>  3. [udev rules](./turtlebot3/tb3_3_RPi_udev_rules.md)
 
 ---
 
@@ -50,11 +50,13 @@
 >>7. [2D Pose 토픽에 의한 회전](./ros1_tutorial/rospy/turtlebot3/tb3_7_Rotate_by_Pose2D.md)
 >>8. [2D Pose 토픽에 의한 회전 및 직선이동 라이브러리 작성](./ros1_tutorial/rospy/turtlebot3/tb3_8_Rotate_n_Straight_Library.md)
 >>9. [목표지점으로 이동 3](./ros1_tutorial/rospy/turtlebot3/tb3_9_move2xy.md)
->>10. [AR 마커 탐색](./ros1_tutorial/rospy/turtlebot3/색tb3_10_search_ar_marker.md)
->>11. 마커가 화면 중앙에 오도록 터틀봇3 제어 
->>12. 마커가 화면 중앙에 위치한 경우의 '/tb3pose' 토픽 값 저장 및 경로 계산
->>13. 계산된 경로에 따라 주행하여 마커와 마주보기
->>14. 마커앞 10 ~ 15(cm) 영역에 멈추기
+>>10. [raspi_cam2_node 설치](./turtlebot3/raspicam2_node/how2install_raspicam2_node.md)
+>>11. 
+>>12. [AR 마커 탐색](./ros1_tutorial/rospy/turtlebot3/색tb3_10_search_ar_marker.md)
+>>13. 마커가 화면 중앙에 오도록 터틀봇3 제어 
+>>14. 마커가 화면 중앙에 위치한 경우의 '/tb3pose' 토픽 값 저장 및 경로 계산
+>>15. 계산된 경로에 따라 주행하여 마커와 마주보기
+>>16. 마커앞 10 ~ 15(cm) 영역에 멈추기
 >
 >**3.3 Parrot Bebop2**
 >
