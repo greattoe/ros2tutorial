@@ -90,7 +90,7 @@
 >2. [파이썬 rqt 플러그인 작성](./ros1_tutorial/rospy/rqt_2_writing_python_plugin.md)
 
 ##### 7. OpenCV 관련 튜토리얼
->1. [cv_bridge](./ros1_tutorial/rospy/open_cv/opencv_1_cv_bridge.md)
+>1. [cv_bridge](./open_cv/opencv_1_cv_bridge.md)
 >2. [동영상으로 토픽발행](./ros1_tutorial/rospy/open_cv/opencv_2_image_publisher.md)
 
 ---
