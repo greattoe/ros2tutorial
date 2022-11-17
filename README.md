@@ -52,13 +52,14 @@
 >>9. [목표지점으로 이동 3](./ros1_tutorial/rospy/turtlebot3/tb3_9_move2xy.md)
 >>10. **[raspi_cam2_node 설치](./turtlebot3/raspicam2_node/how2install_raspicam2_node.md) **
 >>11. ](./ros1_tutorial/rospy/turtlebot3/tb3_9_move2xy.md)
->>12. **[터틀봇3와 아두이노](./turtlebot3/turtlebot3_n_arduino/turtlebot3_n_arduino.md)**
->>13. 
->>14. [AR 마커 탐색](./turtlebot3/turtlebot3_n_arduino/urtlebot3_n_arduino.md)
->>15. 마커가 화면 중앙에 오도록 터틀봇3 제어 
->>16. 마커가 화면 중앙에 위치한 경우의 '/tb3pose' 토픽 값 저장 및 경로 계산
->>17. 계산된 경로에 따라 주행하여 마커와 마주보기
->>18. 마커앞 10 ~ 15(cm) 영역에 멈추기
+>>12. [터틀봇3와 아두이노](./turtlebot3/turtlebot3_n_arduino/turtlebot3_n_arduino.md) 
+>>13. turtlebot3/turtlebot3_n_arduino/urtlebot3_n_arduino.md
+>>14. 
+>>15. [AR 마커 탐색](./turtlebot3/turtlebot3_n_arduino/urtlebot3_n_arduino.md)
+>>16. 마커가 화면 중앙에 오도록 터틀봇3 제어 
+>>17. 마커가 화면 중앙에 위치한 경우의 '/tb3pose' 토픽 값 저장 및 경로 계산
+>>18. 계산된 경로에 따라 주행하여 마커와 마주보기
+>>19. 마커앞 10 ~ 15(cm) 영역에 멈추기
 >
 >**3.3 Parrot Bebop2**
 >
