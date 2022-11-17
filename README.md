@@ -35,7 +35,7 @@
 ##### 3. 로봇 제어
 >**3.1 turtlesim**
 >
->>1. **[원격조종](./turtlesim/1_teleop_key.md) **
+>>1. **[원격조종](./turtlesim/1_teleop_key.md)**
 >>2. [포즈서브스크라이버](./turtlesim/2_subscribe_turtle_pose.md) 
 >>3. [목표장소로 이동](./ros1_tutorial/rospy/mv_tutle_3_Go2Goal.md) 
 >
