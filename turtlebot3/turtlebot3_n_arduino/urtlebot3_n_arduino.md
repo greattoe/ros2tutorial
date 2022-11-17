@@ -272,7 +272,7 @@ import rclpy
 from rclpy.node import Node
 
 from std_msgs.msg import String
-from turtle_pkg.getchar import Getchar
+from arduino.getchar import Getchar
 
 class PubLED_MSG(Node):
 
