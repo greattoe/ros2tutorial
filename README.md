@@ -5,13 +5,13 @@
 
 >1. ROS2 Foxy
 >     1. [Ubuntu 20.04 설치 및 설정]() 
->     2. [ROS2 Foxy 설치 및 설정](./install_ROS_Foxy.md) 
+>     2. **[ROS2 Foxy 설치 및 설정](./install_ROS_Foxy.md)** 
 >2. 3  운영환경 설정 팁
 
 
->  1. [PC 핫스팟 설정](./turtlebot3/tb3_1_set_hotspot_on_1804.md) 
->  2. [SBC 시리얼 콘솔](./turtlebot3/tb3_2_RPi_serial_console.md)  
->  3. [udev rules](./turtlebot3/tb3_3_RPi_udev_rules.md)
+>  1. **[PC 핫스팟 설정](./turtlebot3/tb3_1_set_hotspot_on_1804.md)** 
+>  2. **[SBC 시리얼 콘솔](./turtlebot3/tb3_2_RPi_serial_console.md)**  
+>  3. **[udev rules](./turtlebot3/tb3_3_RPi_udev_rules.md)**
 
 ---
 
@@ -24,8 +24,8 @@
 >3. [Service Server / Client 작성(1/2)](./ros1_tutorial/rospy/rospy_3_WritingServiceServerClient1.md) 
 >4. [catkin + rospy 사용법(2/2) (setup.py)](./ros1_tutorial/rospy/rospy_4_How2UsePythonWithCatkin_2.md) 
 >5. [Service Server / Client 작성(2/2)](./ros1_tutorial/rospy/rospy_5_WritingServiceServerClient2.md) 
->6. [간단한 Parameter 사용 예제](./ros1_tutorial/rospy/rospy_6_How2UseParameter.md) 
->7. 파이썬 경로 설정 
+>6. **[Parameter의 사용 1](./rclpy/parameter1.md)**
+>7.  **[Parameter의 사용 2](./rclpy/parameter2.md)**  
 >8. numpy 사용법
 
 ##### 2. Intermediate level
