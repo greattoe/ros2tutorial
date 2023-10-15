@@ -49,8 +49,8 @@
 >>7. [2D Pose 토픽에 의한 회전](./ros1_tutorial/rospy/turtlebot3/tb3_7_Rotate_by_Pose2D.md)
 >>8. [2D Pose 토픽에 의한 회전 및 직선이동 라이브러리 작성](./ros1_tutorial/rospy/turtlebot3/tb3_8_Rotate_n_Straight_Library.md)
 >>9. [목표지점으로 이동 3](./ros1_tutorial/rospy/turtlebot3/tb3_9_move2xy.md)
->>10. **[raspi_cam2_node 설치](https://github.com/greattoe/ros2tutorial/tree/master/turtlebot3/raspicam2_node)**
->>11. **[터틀봇3와 아두이노](https://github.com/greattoe/ros2tutorial/tree/master/turtlebot3/turtlebot3_n_arduino)**
+>>10. **[raspi_cam2_node 설치](https://github.com/greattoe/ros2tutorial/blob/master/turtlebot3/raspicam2_node/how2install_raspicam2_node.md)**
+>>11. **[터틀봇3와 아두이노](https://github.com/greattoe/ros2tutorial/tree/master/turtlebot3/turhttps://github.com/greattoe/ros2tutorial/blob/master/turtlebot3/turtlebot3_n_arduino/turtlebot3_n_arduino.md)**
 >>12. 
 >>13. [AR 마커 탐색](./turtlebot3/turtlebot3_n_arduino/urtlebot3_n_arduino.md)
 >>14. 마커가 화면 중앙에 오도록 터틀봇3 제어 
@@ -90,7 +90,7 @@
 >2. [파이썬 rqt 플러그인 작성](./ros1_tutorial/rospy/rqt_2_writing_python_plugin.md)
 
 ##### 7. OpenCV 관련 튜토리얼
->1. **[cv_bridge](./opencv/opencv_1_cv_bridge.md)**
+>1. **[cv_bridge](https://github.com/greattoe/ros2tutorial/blob/master/opencv/opencv_1_cv_bridge.md)**
 >2. [동영상으로 토픽발행](./ros1_tutorial/rospy/open_cv/opencv_2_image_publisher.md)
 
 ---
