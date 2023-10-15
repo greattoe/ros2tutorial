@@ -31,7 +31,7 @@ ros2 pkg create py_pubsub --build-type ament_python --dependencies rclpy std_msg
 `~/robot_ws/src/pypubsub/py_pubsub`폴더로 작업 경로 변경
 
 ```
-cd ~/robot_ws/src/py_pubsub
+cd ~/robot_ws/src/py_pubsub/py_pubsub
 ```
 
 `ls` 명령으로 작업경로에 `__init__.py`파일의 존재를 확인한다.
