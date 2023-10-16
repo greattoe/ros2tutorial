@@ -20,10 +20,9 @@
 
 ##### Beginner level
 
-##### 1.[Topic Publisher / Subscriber 작성](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/1_WritingSimplePubSub.md) 
+##### 1.[Topic Publisher / Subscriber 작성](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/rclpy1_WritingSimplePub_n_Sub.md) 
 
->3. [Service Server / Client 작성(](./ros1_tutorial/rospy/rospy_3_WritingServiceServerClient1.md) 
->5. [Service Server / Client 작성(2/2)](./ros1_tutorial/rospy/rospy_5_WritingServiceServerClient2.md) 
+>3. [Service Server / Client 작성](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/rclpy_2_WritingSimpleSVC_n_Client.md) 
 
 ##### 2. Intermediate level
 >1. **[Parameter의 사용 1](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/parameter1.md)**
