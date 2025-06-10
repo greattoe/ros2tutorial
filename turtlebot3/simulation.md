@@ -83,7 +83,7 @@ ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 
 **turtlebot3_house**
 
-![](/home/gnd0/ros2_tutorial/img/turtlebot3_house.png)
+![](../img/turtlebot3_house.png)
 
 
 
