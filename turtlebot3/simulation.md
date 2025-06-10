@@ -138,11 +138,11 @@ Control Your TurtleBot3!
 
 원격조종노드를 구동, 시뮬레이션된 터틀봇3를 조종하여, rviz화면의 어두운 부분을 구석 구석 밝혀 준다. 
 
-![](https://github.com/greattoe/ros2_tutorial/blob/master/img/turtlebot3_cartographer2.png)
+![](../img/turtlebot3_cartographer2.png)
 
 **2.3 작성한 맵 저장하기**
 
-![](https://github.com/greattoe/ros2_tutorial/blob/master/img/virtual_slam.png)
+![](../img/virtual_slam.png)
 
 맵을 작성할 지형 구석구석 충분히 스캔하여 rviz화면의 모든 영역이 밝은색으로 표시되었으면 다음 명령을 실행하여 현재 상태를 지도로 저장한다.
 
@@ -152,7 +152,7 @@ ros2 run nav2_map_server map_saver_cli -f ~/map
 
 
 
-![](https://github.com/greattoe/ros2_tutorial/blob/master/img/saved_map.png)
+![](../img/saved_map.png)
 
 `map.pgm`, `map.yaml`파일이 생성된 것을 확인할 수 있다.
 
