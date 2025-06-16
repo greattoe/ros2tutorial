@@ -22,13 +22,21 @@
 
 ROS에서 `uvc_cam`과 같은 카메라 관련 노드를 구동하면 카메라 영상이 토픽으로 발행된다. 이 여영상 토픽을 `OpenCV`를 이용해 처리하는 방법을 알아보자. 
 
+`usb_cam` ROS 패키지 설치.
+
+```
+ sudo apt install ros-foxy-usb-cam
+```
+
+
+
 `usb_cam`노드 실행
 
 ```
 ros2 run usb_cam usb_cam_node_exe
 ```
 
-`usb_cam`노드 실행 후 토픽 리스트 확인
+`usb_cam`노드 실행 후, 토픽 리스트 확인
 
 
 ```
@@ -43,6 +51,8 @@ ros2 topic list
 ```
 
 리스트 중 카메라 영상 토픽은 `/image_raw` 이다. `rqt` 등에서 영상을 학인 하려면 이 토픽을 선택해 주어야 한다. 
+
+
 
 `/image_raw` 토픽의 `type` 을 확인해 보자. 
 
