@@ -91,12 +91,6 @@ ros2 pkg create opencv --build-type ament_python --dependencies rclpy
 cd ~/robot_ws/src/opencv/opencv
 ```
 
-`script` 폴더 생성 후 작업 경로 변경
-
-```
-mkdir script && cd script
-```
-
 `cv_bridge` 패키지 설치
 
 ```
@@ -210,7 +204,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'grayscale      = opencv.script.grayscale:main',
+            'grayscale      = opencv.grayscale:main',
         ],
     },
 )

@@ -86,7 +86,7 @@ ros2 topic list
 
 
 
-camera_calibration 노드 실행
+`camera_calibration` 노드 실행
 
 ```
 ros2 run camera_calibration cameracalibrator \
@@ -101,7 +101,7 @@ ros2 run camera_calibration cameracalibrator \
 
 | 옵션             | 설명                                                         |
 | ---------------- | ------------------------------------------------------------ |
-| `--size 8x6`     | 체커보드의 내부 코너 개수 (가로 x 세로)                      |
+| `--size 8x6`     | 체커보드의 내부 교차점의 개수 (가로 x 세로)                  |
 | `--square 0.025` | 사각형 한 칸의 실제 크기 (미터 단위: 2.5cm이면 `0.025`)      |
 | `--image_topic`  | 카메라 이미지 토픽 이름 (`/image_raw` 또는 `/camera/image_raw`) |
 | `--camera_name`  | 저장될 보정 파일 이름의 prefix (`~/.ros/camera_info/{camera_name}.yaml`) |
