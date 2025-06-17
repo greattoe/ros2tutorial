@@ -5,12 +5,12 @@
 
 >1. ROS2 Foxy
 >     1. [Ubuntu 20.04 설치 및 설정]() 
->     2. **[ROS2 Foxy 설치 및 설정](https://github.com/greattoe/ros2_tutorial/blob/master/install_ROS_Foxy.md)** 
+>     2. **[ROS2 Foxy 설치 및 설정](https://github.com/greattoe/ros2tutorial/blob/master/install_ROS_Foxy.md)** 
 >2. 3  운영환경 설정 팁
 
 
->  1. **[PC 핫스팟 설정](https://github.com/greattoe/ros2_tutorial/blob/master/turtlebot3/tb3_1_set_hotspot_on_1804.md)** 
->  2. **[SBC 시리얼 콘솔](https://github.com/greattoe/ros2_tutorial/blob/master/turtlebot3/tb3_2_RPi_serial_console.md)**  
+>  1. **[PC 핫스팟 설정](https://github.com/greattoe/ros2tutorial/blob/master/turtlebot3/tb3_1_set_hotspot_on_1804.md)** 
+>  2. **[SBC 시리얼 콘솔](https://github.com/greattoe/ros2tutorial/blob/master/turtlebot3/tb3_2_RPi_serial_console.md)**  
 >  3. **[udev rules](https://github.com/greattoe/ros2tutorial/blob/master/turtlebot3/tb3_3_RPi_udev_rules.md)**
 
 ---
@@ -20,19 +20,19 @@
 
 ##### Beginner level
 
-##### 1.[Topic Publisher / Subscriber 작성](https://github.com/greattoe/ros2_tutorial/blob/master/rclpy/rclpy1_WritingSimplePub_n_Sub.md) 
+##### 1.[Topic Publisher / Subscriber 작성](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/rclpy1_WritingSimplePub_n_Sub.md) 
 
->3. [Service Server / Client 작성](https://github.com/greattoe/ros2_tutorial/blob/master/rclpy/rclpy_2_WritingSimpleSVC_n_Client.md) 
+>3. [Service Server / Client 작성](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/rclpy_2_WritingSimpleSVC_n_Client.md) 
 
 ##### 2. Intermediate level
->1. **[Parameter의 사용 1](https://github.com/greattoe/ros2_tutorial/blob/master/rclpy/parameter1.md)**
->2. **[Parameter의 사용 2](https://github.com/greattoe/ros2_tutorial/blob/master/rclpy/parameter2.md)**  
+>1. **[Parameter의 사용 1](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/parameter1.md)**
+>2. **[Parameter의 사용 2](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/parameter2.md)**  
 
 ##### 3. 로봇 제어
 >**3.1 turtlesim**
 >
->>1. **[원격조종](https://github.com/greattoe/ros2_tutorial/blob/master/turtlesim/1_teleop_key.md)**
->>2. [포즈서브스크라이버](./turtlesim/2_subscribe_turtle_pose.md) 
+>>1. **[원격조종](https://github.com/greattoe/ros2tutorial/blob/master/turtlesim/1_teleop_key.md)**
+>>2. [포즈서브스크라이버](./turtlesim/2subscribe_turtle_pose.md) 
 >>3. [목표장소로 이동](./ros1_tutorial/rospy/mv_tutle_3_Go2Goal.md) 
 >
 >**3.2 Turtlebot 3**
