@@ -8,7 +8,7 @@
 
 ---
 
-노트북에 내장된 웹캠으로 AR Marker를 인식시키거나, 영상처리를 통해 거리 등을 측정하려면 이 때 사용되는 카메라의 보정(camera calibration)작업이 필요하다. 카메라의 보정(camera calibration)작업이 완료되면 `~/.ros/camera_info`폴더가 생성되고, 그안에 `camera.yaml`과 같은 카메라설정 파일이 만들어 지는데, 이 설정파일을 생성하는 것이 카메라의 보정(camera calibration)작업의 목적이라고도 할 수 있다. 카메라의 보정(camera calibration)작업을 위해 우선 노트북에 기본으로 내장된 웹켐이나 USB카메라를 입력소스로 이미지토픽을 발행하는 ROS 노드 패키지인 `usb_cam`노드 패키지를 설치한다. (꼭 `usb_cam`패키지가 아니더라도 해당 카메라를 통해 취득한 영상을 이미지 토픽으로 발행할 수 있는 노드 패키지이면 된다.)
+노트북에 내장된 웹캠으로 AR Marker를 인식시키거나, 영상처리를 통해 거리 등을 측정하려면 이 때 사용되는 카메라의 보정(camera calibration)작업이 필요하다. 카메라의 보정(camera calibration)작업이 완료되면 `~/.ros/camera_info`폴더가 생성되고, 그안에 `camera.yaml`과 같은 카메라설정 파일이 만들어 지는데, 이 설정파일을 생성하는 것이 카메라의 보정(camera calibration)작업의 목적이라고도 할 수 있다. 카메라의 보정(camera calibration)작업을 위해 우선 노트북에 기본으로 내장된 웹캠이나 USB카메라를 입력소스로 이미지토픽을 발행하는 ROS 노드 패키지인 `usb_cam`노드 패키지를 설치한다. (꼭 `usb_cam`패키지가 아니더라도 해당 카메라를 통해 취득한 영상을 이미지 토픽으로 발행할 수 있는 노드 패키지이면 된다.)
 
 `usb_cam` ROS 패키지 설치.
 
@@ -67,22 +67,56 @@ A4용지 크기가  가로 297(mm) x 세로 210(mm) 인 것과 인쇄 마진을 
 `usb_cam`노드 실행.
 
 ```bash
-ros2 launch usb_cam demo_launch.py
+ros2 run usb_cam usb_cam_node_exe
 ```
 
-`usb_cam`노드 실행 후, 토픽 리스트 확인.
+`usb_cam`노드 실행 후, 노드 리스트 확인.
 
 
 ```bash
-ros2 topic list 
-/camera_info
-/image_raw
-/image_raw/compressed
-/image_raw/compressedDepth
-/image_raw/theora
-/parameter_events
-/rosout
+ros2 node list
+/usb_cam
 ```
+
+`usb_cam`노드 실행 후, 파라메터 리스트 확인.
+
+```bash
+ros2 param list 
+/usb_cam:
+  auto_white_balance
+  autoexposure
+  autofocus
+  brightness
+  camera_info_url
+  camera_name
+  contrast
+  exposure
+  focus
+  frame_id
+  framerate
+  gain
+  image_height
+  image_raw.format
+  image_raw.jpeg_quality
+  image_raw.png_level
+  image_width
+  io_method
+  pixel_format
+  saturation
+  sharpness
+  use_sim_time
+  video_device
+  white_balance
+```
+
+위 `ros2 param list`명령 실행결과로부터 `usb_cam`노드와 관련된24개의 `parameter`목록을 볼 수 있다. 이 들 중 `camera_name`의 값을 다음 명령으로 알아보자.
+
+```bash
+gnd0@nt930:~$ ros2 param get /usb_cam camera_name 
+String value is: default_cam
+```
+
+`camera_name`파라메터 값이 `default_cam`이라는 것을 일단 기억해 둔다.
 
 
 
@@ -196,10 +230,11 @@ OK
 카메라 칼리브레이션이 완료되면 그 결과가 터미널 창에 출력되고,
 
 ```bash
-D = [0.3144991978980468, -1.5989806127391157, 0.0055451285156754, -0.007943943540312852, 0.0]
-K = [916.657411627527, 0.0, 272.1155185992783, 0.0, 916.010169034029, 262.7070115316001, 0.0, 0.0, 1.0]
-R = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-P = [925.9728393554688, 0.0, 268.2554919679733, 0.0, 0.0, 931.9431762695312, 264.01520836573036, 0.0, 0.0, 0.0, 1.0, 0.0]
+mono pinhole calibration...
+D =  [0.10264789613758656, -0.022657587841963832, -0.055046049219766455, 0.00024937145988498943, 0.0]
+K =  [521.5551377985744, 0.0, 305.83346734373504, 0.0, 533.3983687542734, 173.73902518367848, 0.0, 0.0, 1.0]
+R =  [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
+P =  [556.9845581054688, 0.0, 306.0941488417666, 0.0, 0.0, 534.4867553710938, 150.4472439842648, 0.0, 0.0, 0.0, 1.0, 0.0]
 None
 # oST version 5.0 parameters
 
@@ -212,15 +247,15 @@ width
 height
 480
 
-[narrow_stereo]
+[default_cam]
 
 camera matrix
-916.657412 0.000000 272.115519
-0.000000 916.010169 262.707012
+521.555138 0.000000 305.833467
+0.000000 533.398369 173.739025
 0.000000 0.000000 1.000000
 
 distortion
-0.314499 -1.598981 0.005545 -0.007944 0.000000
+0.102648 -0.022658 -0.055046 0.000249 0.000000
 
 rectification
 1.000000 0.000000 0.000000
@@ -228,8 +263,8 @@ rectification
 0.000000 0.000000 1.000000
 
 projection
-925.972839 0.000000 268.255492 0.000000
-0.000000 931.943176 264.015208 0.000000
+556.984558 0.000000 306.094149 0.000000
+0.000000 534.486755 150.447244 0.000000
 0.000000 0.000000 1.000000 0.000000
 
 ```
@@ -240,14 +275,6 @@ projection
 
 이 때 `SAVE` 버튼을 클릭하면 다음 메세지가 출력되면서 카메라 칼리브레이션 결과가 `/tmp/calibrationdata.tar.gz` 파일로 저장된다. 
 
-```bash
-('Wrote calibration data to', '/tmp/calibrationdata.tar.gz')
-```
-
-
-
-
-
 ```
 ('Wrote calibration data to', '/tmp/calibrationdata.tar.gz')
 
@@ -255,219 +282,153 @@ projection
 
 
 
-
-
-
-
-`COMMIT` 버튼을 클릭하면 최종결과의 화면 출력과 동시에 그 결과를 `~/.ros/camera_info/camera.yaml` 에 기록 후  카메라 칼리브레이션이 종료된다. 
+`COMMIT` 버튼을 클릭하면 최종결과의 화면 출력과 동시에 그 결과를 `~/.ros/camera_info/camera.yaml` 에 기록 되어야하지만 `cameracalibrator`노드의 버그 때문인지 다음과 같은 에러메세지만 출력된다.
 
 ```bash
-D = [0.3144991978980468, -1.5989806127391157, 0.0055451285156754, -0.007943943540312852, 0.0]
-K = [916.657411627527, 0.0, 272.1155185992783, 0.0, 916.010169034029, 262.7070115316001, 0.0, 0.0, 1.0]
-R = [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-P = [925.9728393554688, 0.0, 268.2554919679733, 0.0, 0.0, 931.9431762695312, 264.01520836573036, 0.0, 0.0, 0.0, 1.0, 0.0]
-# oST version 5.0 parameters
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
-[image]
-
-width
-640
-
-height
-480
-
-[narrow_stereo]
-
-camera matrix
-916.657412 0.000000 272.115519
-0.000000 916.010169 262.707012
-0.000000 0.000000 1.000000
-
-distortion
-0.314499 -1.598981 0.005545 -0.007944 0.000000
-
-rectification
-1.000000 0.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 0.000000 1.000000
-
-projection
-925.972839 0.000000 268.255492 0.000000
-0.000000 931.943176 264.015208 0.000000
-0.000000 0.000000 1.000000 0.000000
+[ERROR]: Not available
 
 ```
 
-`gedit` 으로 `~/.ros/camera_info/camera.yaml` 파일을 열어 화면에 출력된 최종결과와 비교해보자.
+
+
+하지만 `SAVE`버튼을 클릭했을 때 저장된 `/tmp/calibrationdata.tar.gz`파일로부터 이요하여 카메라 보정 파일을 추출해낼 수 있다.
+
+`/mp`폴더로 경로 변경
+
+```
+cd /tmp
+```
+
+
+
+`tmp/calibrationdata.tar.gz`파일 압축해제
+
+```
+tar -xvzf ./calibrationdata.tar.gz
+```
+
+`tmp/calibrationdata.tar.gz`파일의 압축을 해제결과 중,  칼리브레이션 작업 중 추가된 샘플 이미지들과 함께`ost.txt`, `ost.yaml`파일을 확인할 수 있다. 이들 중 `ost.yaml`파일을 `~/.ros/camera_info/default_cam.yaml`로 복사하기 위해 `~/.ros/camera_info`폴더를 생성한다.
 
 ```bash
-$ gedit ~/.ros/camera_info/camera.yaml
+mkdir ~/.ros/camera_info
 ```
 
-```yaml
-image_width: 640
-image_height: 480
-camera_name: camera
-camera_matrix:
-  rows: 3
-  cols: 3
-  data: [885.1539189634087, 0, 263.1519416114306, 0, 884.0249681920377, 271.9336808885551, 0, 0, 1]
-distortion_model: plumb_bob
-distortion_coefficients:
-  rows: 1
-  cols: 5
-  data: [0.1787951805159445, -0.5381009491987961, 0.001860106017531674, -0.01248581488854411, 0]
-rectification_matrix:
-  rows: 3
-  cols: 3
-  data: [1, 0, 0, 0, 1, 0, 0, 0, 1]
-projection_matrix:
-  rows: 3
-  cols: 4
-  data: [894.7117309570312, 0, 258.6353957601023, 0, 0, 902.9822998046875, 272.3630170296092, 0, 0, 0, 1, 0]
-```
-
-이 PC에서 카메라를 사용하는 ROS 노드를 구동할 경우 이 파일을 참조하여 구동된다. 따라서 다른 카메라를 사용할 경우가 있다면 이 파일을 백업하고, 새로운 카메라에 대한 칼리브레이션을 수행하여 그 결과가 반영된 새로운 `camera.yaml` 을 사용해야 한다. 이 역시 백업해 두고, 경우마다 알맞은 `camera.yaml` 파일을 `~/.ros/camera_info` 폴더에 복사하여 사용해야 한다.  
-
-`uvc_camera_node` 를 종료 후, 재시작 시켜 `camera calibration` 에 관련된 어떤 에러, 또는 경고가 화면에 출력 되지 않는 것을 확인한다.  
 
 
-
-이 후 내용은 건너 띄어도 상관없다. 
-
-### 4. `/tmp/calibration.tar.gz` 를 이용한 `camera.yaml` 생성 
-
-이미 앞의 **3장**에서 **카메라 칼리브레이션**은 완료된 것이다. 이 **4장**의 내용은 **카메라 칼리브레이션** 과정에서 저장된 `/tmp/calibrationdata.tar.gz` 파일을 활용하는 방법에 대한 설명이다. 
-
-`/tmp` 폴더는 임시 파일들이 저장되는 폴더로 그 안의 폴더나 파일들은 `sudo` 명령 없이도 읽기, 쓰기가 가능하다. 하지만 시스템이 종료 또는 재시작되면 모든 내용이 삭제된다. 
-
-`/tmp/calibrationdata.tar.gz` 파일의 압축을 해제하면, 카메라 칼리브레이션 중 `add` 했던 `sample` 파일들과 `ost.txt` ,  `ost.yaml` 파일이 나온다. 
+`ost.yaml`을 `~/.ros/camera_info/default_cam.yaml`로 복사 복사되는 파일명 `default_cam`은 앞서 `usb_cam`노드의 `camera_name`파라메터 값을 참조한 것이다.
 
 ```bash
-$ cd /tmp
-$ $ tar -xvzf ./calibrationdata.tar.gz
-$ ls 
-left-0000.png  left-0009.png  left-0018.png  left-0027.png  left-0036.png
-left-0001.png  left-0010.png  left-0019.png  left-0028.png  left-0037.png
-left-0002.png  left-0011.png  left-0020.png  left-0029.png  left-0038.png
-left-0003.png  left-0012.png  left-0021.png  left-0030.png  left-0039.png
-left-0004.png  left-0013.png  left-0022.png  left-0031.png  left-0040.png
-left-0005.png  left-0014.png  left-0023.png  left-0032.png  left-0041.png
-left-0006.png  left-0015.png  left-0024.png  left-0033.png  ost.txt
-left-0007.png  left-0016.png  left-0025.png  left-0034.png  ost.yaml
-left-0008.png  left-0017.png  left-0026.png  left-0035.png
+ cp ost.yaml ~/.ros/camera_info/default_cam.yaml
 ```
 
 
 
-#### 4.1 `ost.yaml` 이용하기
-
-`gedit` 으로 `ost.yaml` 파일을 연다.
-
-```bash
-$ gedit ost.yaml &
-```
-
-아래 내용 중`camera_name: narrow_stereo` 를 `camera_name: camera` 로 변경 후 저장한다. 
-
-```yaml
-image_width: 640
-image_height: 480
-camera_name: narrow_stereo # <---- change 'narrow_stereo' to 'camera'
-camera_matrix:
-  rows: 3
-  cols: 3
-  data: [885.153919, 0, 263.151942, 0, 884.0249679999999, 271.933681, 0, 0, 1]
-distortion_model: plumb_bob
-distortion_coefficients:
-  rows: 1
-  cols: 5
-  data: [0.178795, -0.5381009999999999, 0.00186, -0.012486, 0]
-rectification_matrix:
-  rows: 3
-  cols: 3
-  data: [1, 0, 0, 0, 1, 0, 0, 0, 1]
-projection_matrix:
-  rows: 3
-  cols: 4
-  data: [894.711731, 0, 258.635396, 0, 0, 902.9823, 272.363017, 0, 0, 0, 1, 0]
-```
-
-수정 완료한 `ost.yaml` 을 반영하기 위해 `~/.ros/camera_info/camera.yaml` 으로 복사한다.
-
-```bash
-$ cp ost.yaml ~/.ros/camera_info/camera.yaml
-```
-
-
-
-#### 4.2 `ost.txt` 이용하기
-
-`gedit` 으로 `ost.yaml` 파일을 연다.
-
-```bash
-$ gedit ost.txt &
-```
-
-아래 내용 중`[narrow_stereo]` 를 `[camera]` 로 변경 후 저장한다. 
+`usb_cam`노드를 종료 후, 다시실행 하면 아래와 같이 구동되는 것을 볼 수 있다.
 
 ```
-# oST version 5.0 parameters
+ros2 run usb_cam usb_cam_node_exe 
+[INFO]: camera_name value: default_cam
+[WARN]: framerate: 30.000000
+[INFO]: using default calibration URL
+[INFO]: camera calibration URL: file:///home/gnd0/.ros/camera_info/default_cam.yaml
+[INFO]: Starting 'default_cam' (/dev/video0) at 640x480 via mmap (yuyv) at 30 FPS
+[INFO]: This devices supproted formats:
+[INFO]: 	Motion-JPEG: 1920 x 1080 (30 Hz)
+[INFO]: 	Motion-JPEG: 1280 x 720 (30 Hz)
+[INFO]: 	Motion-JPEG: 960 x 540 (30 Hz)
+[INFO]: 	Motion-JPEG: 848 x 480 (30 Hz)
+[INFO]: 	Motion-JPEG: 640 x 480 (30 Hz)
+[INFO]: 	Motion-JPEG: 640 x 360 (30 Hz)
+[INFO]: 	Motion-JPEG: 424 x 240 (30 Hz)
+[INFO]: 	Motion-JPEG: 352 x 288 (30 Hz)
+[INFO]: 	Motion-JPEG: 320 x 240 (30 Hz)
+[INFO]: 	Motion-JPEG: 320 x 180 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 1920 x 1080 (5 Hz)
+[INFO]: 	YUYV 4:2:2: 1280 x 720 (10 Hz)
+[INFO]: 	YUYV 4:2:2: 960 x 540 (15 Hz)
+[INFO]: 	YUYV 4:2:2: 848 x 480 (20 Hz)
+[INFO]: 	YUYV 4:2:2: 640 x 480 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 640 x 360 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 424 x 240 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 352 x 288 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 320 x 240 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 320 x 180 (30 Hz)
+[INFO]: Setting 'brightness' to 50
+unknown control 'white_balance_temperature_auto'
 
+[INFO]: Setting 'white_balance_temperature_auto' to 1
+[INFO]: Setting 'exposure_auto' to 3
+unknown control 'exposure_auto'
 
-[image]
+[INFO]: Setting 'focus_auto' to 0
+unknown control 'focus_auto'
 
-width
-640
-
-height
-480
-
-[narrow_stereo]  <--- change '[narrow_stereo]' to '[camera]'
-
-camera matrix
-885.153919 0.000000 263.151942
-0.000000 884.024968 271.933681
-0.000000 0.000000 1.000000
-
-distortion
-0.178795 -0.538101 0.001860 -0.012486 0.000000
-
-rectification
-1.000000 0.000000 0.000000
-0.000000 1.000000 0.000000
-0.000000 0.000000 1.000000
-
-projection
-894.711731 0.000000 258.635396 0.000000
-0.000000 902.982300 272.363017 0.000000
-0.000000 0.000000 1.000000 0.000000
-```
-
-`ost.txt` 파일을 `ost.ini` 로 파일명을 변경한다. 
-
-```
-$ mv ost.txt ost.ini
-```
-
-`camera_calibration_parsers` 패키지의 `convert` 노드를 이용하여 `camera.yaml` 생성
-
-```
-$rosrun camera_calibration_parsers convert ost.ini camera.yaml
-```
-
-생성된 `camera.yaml` 을 반영하기 위해 `~/.ros/camera_info/camera.yaml` 으로 복사한다.
-
-```bash
-$ cp camera.yaml ~/.ros/camera_info/camera.yaml
+[INFO]: Timer triggering every 33 ms
 ```
 
 
 
+이 번에는 `~/.ros/camera_info/default_cam.yaml`파일을 삭제하거나 파일명 변경 하거나서 `usb_cam`노드를 종료 후, 다시실행 하면 아래와 같이 구동되는 것을 볼 수 있다.
 
 
 
+```
+ros2 run usb_cam usb_cam_node_exe 
+[INFO]: camera_name value: default_cam
+[WARN]: framerate: 30.000000
+[INFO]: using default calibration URL
+[INFO]: camera calibration URL: file:///home/gnd0/.ros/camera_info/default_cam.yaml
+[ERROR]: Unable to open camera calibration file [/home/gnd0/.ros/camera_info/default_cam.yaml]
+[WARN]: Camera calibration file /home/gnd0/.ros/camera_info/default_cam.yaml not found
+[INFO]: Starting 'default_cam' (/dev/video0) at 640x480 via mmap (yuyv) at 30 FPS
+[INFO]: This devices supproted formats:
+[INFO]: 	Motion-JPEG: 1920 x 1080 (30 Hz)
+[INFO]: 	Motion-JPEG: 1280 x 720 (30 Hz)
+[INFO]: 	Motion-JPEG: 960 x 540 (30 Hz)
+[INFO]: 	Motion-JPEG: 848 x 480 (30 Hz)
+[INFO]: 	Motion-JPEG: 640 x 480 (30 Hz)
+[INFO]: 	Motion-JPEG: 640 x 360 (30 Hz)
+[INFO]: 	Motion-JPEG: 424 x 240 (30 Hz)
+[INFO]: 	Motion-JPEG: 352 x 288 (30 Hz)
+[INFO]: 	Motion-JPEG: 320 x 240 (30 Hz)
+[INFO]: 	Motion-JPEG: 320 x 180 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 1920 x 1080 (5 Hz)
+[INFO]: 	YUYV 4:2:2: 1280 x 720 (10 Hz)
+[INFO]: 	YUYV 4:2:2: 960 x 540 (15 Hz)
+[INFO]: 	YUYV 4:2:2: 848 x 480 (20 Hz)
+[INFO]: 	YUYV 4:2:2: 640 x 480 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 640 x 360 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 424 x 240 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 352 x 288 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 320 x 240 (30 Hz)
+[INFO]: 	YUYV 4:2:2: 320 x 180 (30 Hz)
+[INFO]: Setting 'brightness' to 50
+unknown control 'white_balance_temperature_auto'
+
+[INFO]: Setting 'white_balance_temperature_auto' to 1
+[INFO]: Setting 'exposure_auto' to 3
+unknown control 'exposure_auto'
+
+[INFO]: Setting 'focus_auto' to 0
+unknown control 'focus_auto'
+
+[INFO]: Timer triggering every 33 ms
+```
+
+
+
+`ros2_aruco_node`를 구동해봐도제대로 된 `~/.ros/camera_info/default_cam.yaml`파일의 존재 유무에 따라 `/aruco_makers`토픽 내용이 차이가 나는 것을 확인할 수 있다. 
 
 
 

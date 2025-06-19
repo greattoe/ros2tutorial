@@ -50,7 +50,7 @@ cd ~/temp/ros2_aruco4tb3
 
 
 
-`ls`명령으로 `ros2_aruco`,  `ros2_aruco_interfaces`패키지 폴더 확인
+`ls`명령으로 `ros2_aruco`  `ros2_aruco_interfaces`패키지 폴더 확인
 
 ```bash
 ls
@@ -59,7 +59,7 @@ README.md  ros2_aruco  ros2_aruco_interfaces
 
 
 
-`ros2_aruco` , `ros2_aruco_interfaces`패키지 폴더를 `~/robot_ws/src`로 복사
+`ros2_aruco`  `ros2_aruco_interfaces`패키지 폴더를 `~/robot_ws/src`로 복사
 
 ```bash
 cp -r ros2_aruco* ~/robot_ws/src/
@@ -103,7 +103,7 @@ ros2 run ros2_aruco aruco_generate_marker --id 5 --size 300 --dictionary DICT_4X
 - `--dictionary`: 마커를 생성할 때 사용할 ArUco 딕셔너리 이름
    (예: `DICT_4X4_50`, `DICT_5X5_100`, `DICT_6X6_250` 등)
 
-**지원되는 딕셔너리 목록 예시:**
+### 지원되는 딕셔너리 목록 예시:
 
 - `DICT_4X4_50`
 
@@ -141,7 +141,7 @@ build  install  log  marker_0005.png  src
 
 **`aruco_generate_marker.py`**
 
-: 앞서 살펴본 마커 이미지 생성 노드 코드
+: 앞서 살펴본 마커 이미지 생성 노드 실행 `entry_point`.
 
 - **`aruco_node.py`**
 
@@ -157,116 +157,92 @@ build  install  log  marker_0005.png  src
 
 - **`img_compressed2raw.py`**
 
-: 터틀봇에 설치한 라즈베리파이 카메라를 구동하면 발행되는 `/camera/image/compressed`를 구독하여 `ros2_aruco`패키지가 구독하는 `/image_raw`토픽으로 변환하여 발행하는 노드 코드로, 터틀봇3에서 `raspicam2_node` 구동 후 이 코드를 실행하면 `ros2 topic list`실행 결과에 `/image_raw`가 나타난다. 
+: 터틀봇에 설치한 라즈베리파이 카메라를 구동하면 발행되는 `/camera/image/compressed`를 구독하여 `ros2_aruco`패키지가 구독하는 `/image_raw`토픽으로 변환하여 발행하는 노드 코드로, 터틀봇3에서 `raspicam2_node` 구동 후 이 코드를 실행하면 `ros2 topic list`실행 결과에 `/image_raw`가 나타난다. 따라서 커틀봇3에 설치한 라즈베리파이 카메라를 사용하여 AR마커를 인식하려면
+
+1. **라즈베리파이 카메라 구동**
+
+   : 라즈베리파이에 `ssh`연결 후, 다음 명령 실행.
+
+   ```bash
+    ros2 run raspicam2 raspicam2_node --ros-args --params-file `ros2 pkg prefix raspicam2`/share/raspicam2/cfg/params.yaml
+   ```
+
+   `ros2 topic list`명령을 실행하여 `/camera/image/camera_info`토픽과 `/camera/image/compressed`토픽을 확인 후, `rqt`로 영상확인을 위해 다음 명령을 실행한다. 
+
+   ```
+   ros2 run rqt_image_view rqt_image_view
+   ```
+
+   ![](../img/rqt_image_view.png)
+
+2. **`/camera/image/compressed`토픽을 `/image_raw`토픽으로 변환**
+
+   : PC에서 다음 명령 실행
+
+   ```
+   ros2 run ros2_aruco img_compressed2raw
+   ```
+
+   `ros2 topic list`명령을 실행하여 토픽과 `/camera/image_raw`토픽을 확인
+
+   3. **`ros2_aruco`패키지 실행**
+
+   : PC에서 다음 명령 실행
+
+   ```
+   ros2 run ros2_aruco aruco_raspicam2
+   ```
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   `ar_track`패키지의 `keep_dist`노드 실행순서
+   
+   1. **라즈베리파이**에서 다음 명령으로 카메라 구동
+   
+      ```bash
+      ros2 run raspicam2 raspicam2_node --ros-args --params-file `ros2 pkg prefix raspicam2`/share/raspicam2/cfg/params.yaml
+      ```
+   
+      2. **라즈베리파이**에서 다음 명령으로 터틀봇3 브링업
+   
+         ```bash
+          ros2 launch turtlebot3_bringup robot.launch.py
+         ```
+   
+         3. **노트북**에서 다음 명령으로 `rqt_image_view`실행
+   
+         4. ```
+            ros2 run rqt_image_view rqt_image_view
+            ```
+   
+         5. **노트북**에서 다음 명령으로 `img_compressed2raw`실행
+   
+         6. ```
+            ```
+   
+         7. 
 
 
 
-### 2. 라즈베리파이 카메라를 이용한 AR마커 인식
+| 순서 | PC(노트북) | SBC(라즈베리파이) |
+| ---- | ---------- | ----------------- |
+| 1    |            | 카메라 구동       |
+| 2    |            | 브링업            |
+| 3    |            |                   |
+|      |            |                   |
+|      |            |                   |
 
 
 
-터틀봇3에 설치한 라즈베리파이 카메라를 사용하여 AR마커를 인식하려면 다음 순서를 따른다. 
 
-#### 2.1라즈베리파이 카메라 구동
-
-: **라즈베리파이**에 `ssh`연결 후, 다음 명령 실행.
-
-```bash
- ros2 run raspicam2 raspicam2_node --ros-args --params-file `ros2 pkg prefix raspicam2`/share/raspicam2/cfg/params.yaml
-```
-
-#### 2.2 `rqt_image_view`실행
-
-`ros2 topic list`명령을 실행하여 `/camera/image/camera_info`토픽과 `/camera/image/compressed`토픽을 확인 후, `rqt`로 영상확인을 위해 다음 명령을 실행한다. 
-
-```
-ros2 run rqt_image_view rqt_image_view
-```
-
-![](../img/rqt_image_view.png)
-
-#### 2.3`/camera/image/compressed`토픽을 `/image_raw`토픽으로 변환
-
-: **PC**에서 다음 명령 실행
-
-```bash
-ros2 run ros2_aruco img_compressed2raw
-```
-
-```bash
-ros2 run ros2_aruco img_compressed2raw 
-start publish image_raw...
-```
-
-
-
-`ros2 topic list`명령을 실행하여 `/camera/image_raw`토픽을 확인
-
-```bash
-ros2 topic list 
-/camera/image/camera_info
-/camera/image/compressed
-/image_raw # <===============
-/parameter_events
-```
-
-
-
-#### 2.4 `ros2_aruco`패키지 실행
-
-: **PC**에서 다음 명령 실행
-
-```bash
- ros2 run ros2_aruco aruco_raspicam2
-```
-
-```bash
-ros2 run ros2_aruco aruco_raspicam2 
-[WARN]: No camera info has been received!
-[WARN]: No camera info has been received!
-[WARN]: No camera info has been received!
-[WARN]: No camera info has been received!
----
----
----
----
-```
-
-
-
-`ros2 topic list`명령을 실행하여 `/aruco_markers`토픽과 `/aruco_poses`토픽을 확인 후,
-
-`rqt`화면에 마커전체가 나타나게 세팅 후, 다음 명령으로 `/aruko_makers`토픽을 `echo`시켜보자.
-
-```bash
-ros2 topic echo /aruco_markers
-```
-
-`rqt`화면에 마커 전체가 잘리지 않고 나타나면 다음과 같은 정보가 출력되면 AR마커 인식에 성공한 것이다.
-
-```bash
----
-header:
-  stamp:
-    sec: 0
-    nanosec: 0
-  frame_id: camera
-marker_ids:
-- 9
-poses:
-- position:
-    x: 0.006571172744476477
-    y: 0.0023849355306037228
-    z: 0.11940911905015925
-  orientation:
-    x: 0.9992630035952469
-    y: 0.01745799995299323
-    z: 0.007936406500505188
-    w: 0.03325178694906117
----
-```
-
-위 `echo`출력에서 마커 `id`는 9번이고, 카메라와 마커까지의 거리는 대략 12Cm임을 알 수 있다.
 
 ---
 
