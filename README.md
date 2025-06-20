@@ -47,7 +47,7 @@
 >>8. [2D Pose 토픽에 의한 회전 및 직선이동 라이브러리 작성](./ros1_tutorial/rospy/turtlebot3/tb3_8_Rotate_n_Straight_Library.md)
 >>9. [목표지점으로 이동 3](./ros1_tutorial/rospy/turtlebot3/tb3_9_move2xy.md)
 >>10. **[터틀봇3 카메라를 이용한 AR마커 인식](./ar_marker/ros2_aruco.md)**
->>11. **[raspi_cam2_node 설치](https://github.com/greattoe/ros2tutorial/blob/master/turtlebot3/raspicam2_node/how2install_raspicam2_node.md)**
+>>11. **[raspi_cam2_node 설치](./turtlebot3/raspicam2_node/how2install_raspicam2_node.md)**
 >>12. **[터틀봇3와 아두이노](https://github.com/greattoe/ros2tutorial/blob/master/turtlebot3/turtlebot3_n_arduino/turtlebot3_n_arduino.md)**
 >>13. 
 >>14. [AR 마커 탐색](./turtlebot3/turtlebot3_n_arduino/urtlebot3_n_arduino.md)
