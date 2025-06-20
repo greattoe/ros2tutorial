@@ -47,14 +47,16 @@
 >>8. [2D Pose 토픽에 의한 회전 및 직선이동 라이브러리 작성](./ros1_tutorial/rospy/turtlebot3/tb3_8_Rotate_n_Straight_Library.md)
 >>9. [목표지점으로 이동 3](./ros1_tutorial/rospy/turtlebot3/tb3_9_move2xy.md)
 >>10. **[터틀봇3 카메라를 이용한 AR마커 인식](./ar_marker/ros2_aruco.md)**
->>11. **[raspi_cam2_node 설치](./turtlebot3/raspicam2_node/how2install_raspicam2_node.md)**
->>12. **[터틀봇3와 아두이노](https://github.com/greattoe/ros2tutorial/blob/master/turtlebot3/turtlebot3_n_arduino/turtlebot3_n_arduino.md)**
->>13. 
->>14. [AR 마커 탐색](./turtlebot3/turtlebot3_n_arduino/urtlebot3_n_arduino.md)
->>15. 마커가 화면 중앙에 오도록 터틀봇3 제어 
->>16. 마커가 화면 중앙에 위치한 경우의 '/tb3pose' 토픽 값 저장 및 경로 계산
->>17. 계산된 경로에 따라 주행하여 마커와 마주보기
->>18. 마커앞 10 ~ 15(cm) 영역에 멈추기
+>>11. ](./ros1_tutorial/rospy/turtlebot3/tb3_9_move2xy.md)
+>>12. **[AR마커를 이용한 터틀봇 제어1. keep_dist](./ar_marker/ar_track_keep_dist.md)**
+>>13. **[raspi_cam2_node 설치](./turtlebot3/raspicam2_node/how2install_raspicam2_node.md)**
+>>14. **[터틀봇3와 아두이노](./turtlebot3/turtlebot3_n_arduino/turtlebot3_n_arduino.md)**
+>>15. 
+>>16. [AR 마커 탐색](./turtlebot3/turtlebot3_n_arduino/urtlebot3_n_arduino.md)
+>>17. 마커가 화면 중앙에 오도록 터틀봇3 제어 
+>>18. 마커가 화면 중앙에 위치한 경우의 '/tb3pose' 토픽 값 저장 및 경로 계산
+>>19. 계산된 경로에 따라 주행하여 마커와 마주보기
+>>20. 마커앞 10 ~ 15(cm) 영역에 멈추기
 >
 >**3.3 Parrot Bebop2**
 >
@@ -79,9 +81,11 @@
 >5. [tf 와의 시간여행](./ros1_tutorial/rospy/tf_3_adding_frame.md)
 
 ##### 5. AR Marker 튜토리얼
->1. [카메라 Calibration](./ros1_tutorial/camera_calibration/how_to_calibrate_monocular_camera.md)
->2. [ar_track_alvar 구동](./ros1_tutorial/rospy/ar_1_ar_track_alvar.md)
->3. [ AR 마커 정보 해석](./ros1_tutorial/rospy/ar_2_analysis_marker.md)
+>1. [카메라 Calibration](./camera_calibration/camera_calibration.md)
+>2. [터틀봇3의 라즈베리 카메라를 이용한 AR마커 인식](./ar_marker/ros2_aruco.md)
+>3. 
+>4. [터틀봇3의 라즈베리 카메라를 이용한 AR마커 인식](./ar_marker/ar_track_keep_dist.md)
+>5. [ AR 마커 정보 해석](./ar_marker/how2analisys_marker_topic)
 
 ##### 6. rqt 튜토리얼
 >1. [rqt 플러그인 패키지 생성](./ros1_tutorial/rospy/rqt_1_create_rqt_plugin_pkg.md)

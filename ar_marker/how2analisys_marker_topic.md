@@ -334,5 +334,5 @@ $ rosrun ar_marker pub_marker_pose.py 3
 
 ---
 
-[이전 튜토리얼](./ar_1_ar_track_alvar.md) &nbsp; &nbsp; / &nbsp; &nbsp; [튜토리얼 목록](../../README.md) &nbsp; &nbsp; / &nbsp; &nbsp;  다음 튜토리얼
+[이전 튜토리얼](./ar_1_ar_track_alvar.md) &nbsp; &nbsp; / &nbsp; &nbsp; [튜토리얼 목록](../README.md) &nbsp; &nbsp; / &nbsp; &nbsp;  다음 튜토리얼
 

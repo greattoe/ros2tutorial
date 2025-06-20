@@ -190,10 +190,10 @@ led off
 cd ~/robot_ws/src
 ```
 
-`rclpy`와 `std_msgs`에 의존성을 가지는 패키지 `arduino`를 만든다.
+`rclpy`에 의존성을 가지는 패키지 `arduino`를 만든다.
 
 ```
-ros2 pkg create arduino --build-type ament_python --dependencies rclpy std_msgs
+ros2 pkg create arduino --build-type ament_python --dependencies rclpy
 ```
 
 
@@ -253,16 +253,10 @@ class Getchar:
 
 
 
-작성한 `getchar.py`코드를 저장 후, 이 후 작성할  `pub_led_msg.py` 노드와 `sub_led_msg.py` 노드를 저장할 `script` 폴더를 만들고 작업 경로를 해당 폴더로 변경한다. 
+키보드 입력에 따른 LED 제어토픽 `led_msg`를 발행하는 노드 `pub_led_msg.py` 작성
 
-```
-mkdir script && cd script
-```
-
-LED 제어토픽 `led_msg`발행 노드 `pub_led_msg` 작성
-
-```
-gedit pub_led_msg &
+```bash
+gedit pub_led_msg.py &
 ```
 
 
@@ -357,7 +351,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-                'pub_led_msg   = arduino.script.pub_led_msg:main',
+                'pub_led_msg   = arduino.pub_led_msg:main',
         ],
     },
 )
@@ -368,7 +362,7 @@ setup(
 ```python
 entry_points={
         'console_scripts': [
-                'pub_led_msg   = arduino.script.pub_led_msg:main',
+                'pub_led_msg   = arduino.pub_led_msg:main',
         ],
 },
 ```
@@ -381,13 +375,13 @@ cd ~/robot_ws/
 
 다음 명령으로 빌드한다.
 
-```
+```bash
 colcon build --symlink-install
 ```
 
 새로 빌드된 패키지 정보 반영을 위해 다음 명령을 실행한다. 
 
-```
+```bash
 . install/local_setup.bash
 ```
 
@@ -395,28 +389,28 @@ colcon build --symlink-install
 
 `pub_led_msg` 노드의 동작 테스트를 위해 해당노드를 실행한다. 
 
-```
+```bash
 ros2 run arduino pub_led_msg
 ```
 
 새 터미널 창을 열고 `ros2 topic list` 명령을 실행하여 `/led_msg` 토픽이 리스트에 존재하는 지 확인한다. 
 
-```
+```bash
 ros2 topic list 
-/led_msg
+/led_msg # <=========
 /parameter_events
 /rosout
 ```
 
 토픽 리스트에서 해당 토픽이 확인 되었다면 다음 명령을 실행하여 해당 토픽을 화면에 `echo` 시킨다.
 
-```
+```bash
 ros2 topic echo /led_msg
 ```
 
 아직은 아무 변화가 없지만 앞서 `pub_led_msg`노드를 실행한 터미널 창에서 `1`키와 `0`키를 입력해 주면 다음과 같은 출력이 화면에 나타난다. 
 
-```
+```bash
 ros2 topic echo /led_msg 
 data: 'on'
 ---
@@ -433,10 +427,10 @@ data: 'off'
 
 #### 6. `sub_led_msg.py`노드 작성
 
-이제 `led_msg` 토픽을 구독하여  `led_msg` 토픽의 내용에 따라 시리얼로 '1' 또는 '0'을 전송하여 아두이노의 LED를 제어하는 `led_msg`토픽 서브스크라이버 노드 `sub_led_msg.py`를 작성하기 위해 작업 경로를 `~/robot_ws/src/srduino/srduino/script`로 변경한다.
+이제 `led_msg` 토픽을 구독하여  `led_msg` 토픽의 내용에 따라 시리얼로 '1' 또는 '0'을 전송하여 아두이노의 LED를 제어하는 `led_msg`토픽 서브스크라이버 노드 `sub_led_msg.py`를 작성하기 위해 작업 경로를 `~/robot_ws/src/arduino/arduino`로 변경한다.
 
 ```
-cd robot_ws/src/srduino/srduino/script
+cd robot_ws/src/arduino/arduino
 ```
 
 `sub_led_msg.py` 작성
@@ -457,7 +451,7 @@ from std_msgs.msg import String
 
 
 sp  = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
-class SubLED_MSG(Node):
+class SubLEDMSG(Node):
 
     def __init__(self):
         super().__init__('sub_led_msg')
@@ -482,7 +476,7 @@ class SubLED_MSG(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = SubLED_MSG()
+    node = SubLEDMSG()
     try:    
         #while rclpy.ok():
             #pass
@@ -506,7 +500,7 @@ if __name__ == '__main__':
 
 `setup.py` 수정을 위해 작업경로 변경
 
-```
+```bash
 cd ~/robot_ws/src/arduino
 ```
 
@@ -516,7 +510,7 @@ cd ~/robot_ws/src/arduino
 
 `setup.py`파일을 편집한다. 
 
-```
+```bash
 gedit setup.py &
 ```
 
@@ -552,7 +546,7 @@ setup(
 ```python
 entry_points={
         'console_scripts': [
-                'sub_led_msg   = arduino.script.sub_led_msg:main',
+                'sub_led_msg   = arduino.sub_led_msg:main',
         ],
 },
 ```
@@ -581,7 +575,7 @@ colcon build --symlink-install
 
 새 터미널 창에서 `pub_led_msg.py` 노드를 실행한다.
 
-```
+```bash
 ros2 run arduino pub_led_msg
 ```
 
@@ -589,13 +583,13 @@ ros2 run arduino pub_led_msg
 
 `sub_led_msg.py` 노드 실행
 
-```
+```bash
 ros2 run arduino sub_led_msg
 ```
 
 `pub_led_msg.py`노드를 실행한 창에서 `1`키와 `0`키를 입력했을 때 `sub_led_msg.py` 노드를 실행한 터미널 창의 변화와 아두이노 온보드 LED의 점등 상태를 확인한다.
 
-```
+```bash
 ros2 run arduino sub_led_msg 
 01
 on
@@ -621,7 +615,7 @@ off
 
 라즈베리파이의 `/etc/netplan/50-cloud-init.yaml`의 내용이 노트북에서 구동한 핫스팟에 연결되도록 적절히 설정되어 있음을 전제로, 라즈베리 파이의 ip주소를 알아내기 위해 다음 명령을 수행한다. 
 
-```
+```bash
 nmap -sn 10.42.0.0/24
 Starting Nmap 7.80 ( https://nmap.org ) at 2022-11-15 23:42 KST
 Nmap scan report for a10sc (10.42.0.1)
@@ -633,7 +627,7 @@ Nmap done: 256 IP addresses (2 hosts up) scanned in 16.89 seconds
 
 라즈베리파이의 ip주소가 10.42.0.25임을 알 수 있다. `ssh`를 이용해 라즈베리파이에 원격 접속한다.
 
-```
+```bash
 ssh ubuntu@10.42.0.25
 ubuntu@10.42.0.25's password: 
 ```
@@ -642,7 +636,7 @@ ubuntu@10.42.0.25's password:
 
 시리얼 포트를 알아내기 위해 `ls /dev/tty*` 명령을 실행한다.
 
-```
+```bash
 ls /dev/tty*
 /dev/tty    /dev/tty58    /dev/ttycc      /dev/ttyq2  /dev/ttyt8    /dev/ttywe
 /dev/tty0   /dev/tty59    /dev/ttycd      /dev/ttyq3  /dev/ttyt9    /dev/ttywf
@@ -703,7 +697,7 @@ ls /dev/tty*
 
 아두이노를 라즈베리파이의 USB 포트에 연결 후 다시 `ls /dev/tty*` 명령을 실행한다. 
 
-```
+```bash
 ls /dev/tty*
 /dev/tty    /dev/tty58    /dev/ttycc      /dev/ttyq2  /dev/ttyt8    /dev/ttywe
 /dev/tty0   /dev/tty59    /dev/ttycd      /dev/ttyq3  /dev/ttyt9    /dev/ttywf
@@ -766,62 +760,56 @@ ls /dev/tty*
 
 `/dev/ttyUSB0`옆에 `/dev/ttyUSB1`이 나타난 것을 알 수 있다.
 
-터틀봇3의 라즈베리파이를 위한 우분투 서버 이미지에는 이미 `~/turtlebot_ws`라는 워크 스페이스가 마련되어 있지만, 이 워크스페이스에는 터틀봇3 ROS 패키지들과 추가 패키지들의 소스코드가 가득 들러 있다보니 
+터틀봇3의 라즈베리파이를 위한 우분투 서버 이미지에는 이미 `~/turtlebot_ws`라는 워크 스페이스가 마련되어 있으므로 이 워크스페이스를 이용하자.  `~/turtlebot3_ws/src`로 경로 변경
 
-```
+```bash
 cd ~/turtlebot3_ws/src
 ```
 
-`rclpy`와 `std_msgs`에 의존성을 가지는 패키지 `arduino`를 만든다.
+`rclpy`와 `rclpy`에 의존성을 가지는 패키지 `arduino`를 만든다.
 
-```
-ros2 pkg create arduino --build-type ament_python --dependencies rclpy std_msgs
+```bash
+ros2 pkg create arduino --build-type ament_python --dependencies rclpy
 ```
 
 
 
 다음 명령으로 생성된 중첩된 패키지 폴더로 작업경로를 변경한다.
 
-```
+```bash
 cd ~/turtlebot3_ws/src/arduino/arduino
 ```
 
 `ls` 명령으로 작업경로에 `__init__.py`파일의 존재를 확인한다.
 
-```
+```bash
 ls
 __init__.py
-```
-
-이 후 작성할  `sub_led_msg.py` 노드를 저장할 `script` 폴더를 만들고 작업 경로를 해당 폴더로 변경한다. 
-
-```
-mkdir script && cd script
-```
-
-
-
-
-
-`python3-pip` 설치
-
-```
-sudo apt install python3-pip
 ```
 
 
 
 `pyserial` 라이브러리 설치
 
-```
+```bash
 sudo pip3 install pyserial
+```
+
+
+
+`Command 'pip3' not found, did you mean:`와 같이 `pip3`가 설치되어 있지않아서 에러가 발생하면 다음 명령으로 설치해 준다.
+
+`python3-pip` 설치
+
+```bash
+sudo apt install python3-pip
 ```
 
 
 
 LED 제어토픽 `led_msg`구독 노드 `sub_led_msg` 작성 
 
-```
+```bash
 nano sub_led_msg
 ```
 
@@ -886,7 +874,7 @@ if __name__ == '__main__':
 
 `setup.py` 수정을 위해 작업경로 변경
 
-```
+```bash
 cd ~/turtlebot3_ws/src/arduino
 ```
 
@@ -896,7 +884,7 @@ cd ~/turtlebot3_ws/src/arduino
 
 `setup.py`파일을 편집한다. 
 
-```
+```bash
 nano setup.py
 ```
 
@@ -941,36 +929,45 @@ entry_points={
 
 패키지 빌드를 위해 작업 경로를 `robot_ws`로 변경한다.
 
-```
+```bash
 cd ~/turtlebot_ws/
 ```
 
 다음 명령으로 빌드한다. (`~/turtlebot_ws/src`에는 터틀봇3 전체 패키지 뿐 아니라 추가 `ROS` 패키지들이 상당 수 들어 있으므로 `--packages-select` 옵션없이 빌드할 경우, 상당히 많은 시간이 소요됨에 주의한다.)
 
-```
+```bash
 colcon build --symlink-install --packages-select arduino
 ```
 
 새로 빌드된 패키지 정보 반영을 위해 다음 명령을 실행한다. 
 
-```
+```bash
 . install/local_setup.bash
 ```
 
 
 
-노트북에서 `pub_led_msg.py`노드를 실행한다.
+**노트북**에서 `pub_led_msg.py`노드를 실행한다.
 
-```
+```bash
 ros2 run arduino pub_led_msg
 ```
 
-터틀봇3의 라즈베리파이에서 `sub_led_msg.py`노드를 실행한다. 
+터틀봇3의 **라즈베리파이**에서 `sub_led_msg.py`노드를 실행한다. 
 
-```
+```bash
+ros2 run arduino sub_led_msg
 ```
 
 
 
  `pub_led_msg.py`노드를 실행한 창에서 키보드 `1`, `0`을 번갈아 누르면서 라즈베리파이에 연결된 아두이노의 LED 점등 상태를 확인한다. 
+
+
+
+
+
+
+
+[튜토리얼 목록](../../README.md) 
 
