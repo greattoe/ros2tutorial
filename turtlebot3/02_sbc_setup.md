@@ -24,7 +24,13 @@
 
 아래 링크에서 필자가 백업해 둔 라즈베리파이3용 ROS Foxy 이미지를 다운로드 받을 수 있다.
 
-[Foxy 이미지 다운로드 링크](https://www.dropbox.com/scl/fi/8navhwcxrwxnx56icbw8h/rpi3foxy_img4tb3.zip?rlkey=z7iwu7z1q022uxq9syv2ximle&st=ga5wk34y&dl=0) 
+[Foxy 이미지 다운로드 링크1](https://www.dropbox.com/scl/fi/8navhwcxrwxnx56icbw8h/rpi3foxy_img4tb3.zip?rlkey=z7iwu7z1q022uxq9syv2ximle&st=ga5wk34y&dl=0) 
+
+[Foxy 이미지 다운로드 링크2](https://drive.google.com/file/d/1RMu7tZACiXhLQm5xkVGAiBNnNwv69eMI/view?usp=drive_link)
+
+
+
+
 
 다운받은 rpi3foxy_img4turtlebot3.zip 파일의 압축 해제를 위해 아래 그림과 같이 탐색기에서 `rpi3foxy_img4turtlebot3.zip`파일에 마우스 오른쪽 버튼을 클릭하여 열린 컨텍스트 메뉴에서 `Extract Here`메뉴를 선택한다.
 
