@@ -172,19 +172,19 @@ ros2 launch my_gazebo_launch empty_world.launch.py world:=/$HOME/simple_world/si
 
 이 번에는  `insert`탭의 `Add Path`항목중에 서 `TurtleBot3(Burger)`가 나타난 것을 확인할 수 있다.
 
-![](/home/gnd0/ros2tutorial/gazebo/img/gazebo_launch_custom_world.png)
+![](./img/gazebo_launch_custom_world.png)
 
 
 
 이 번에는  `insert`탭의 `Add Path`항목중 `TurtleBot3(Burger)`를 클릭하면 다음과 같이 로봇이 나타나 마우스 포인터를 따라 다니는 것을 확인할 수 있다.
 
-![](/home/gnd0/ros2tutorial/gazebo/img/gazebo_launch_tb3_on_custom_world1.png)
+![](./img/gazebo_launch_tb3_on_custom_world1.png)
 
 
 
 마우스를 움직여 원하는 위치에서 클릭하면, 다음 그림과 같이 해당 위치로 로봇이 소환된다.
 
-![](/home/gnd0/ros2tutorial/gazebo/img/gazebo_launch_tb3_on_custom_world2.png)
+![](./img/gazebo_launch_tb3_on_custom_world2.png)
 
 이제 `topic list`를 확인해보면 다음과 같이 터틀봇3 관련 토픽들이 나타난 것을 확인할 수 있다. 
 
