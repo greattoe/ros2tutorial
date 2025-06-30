@@ -1,8 +1,9 @@
-다음은 1초단위 딜레이 함수 `sec()`와 1ms단위 딜레이 함수 `ms()`를 제공하는 사용자 정의 라이브러리 `delay.py`이다.
+다음은 1초단위 딜레이 함수 `sec()`와 1`ms`단위 딜레이 함수 `ms()`를 제공하는 사용자 정의 라이브러리 `delay.py`이다.
 
 ```python
 import rclpy
 from rclpy.node import Node
+from ar_track.delay import Delay
 
 class Delay(Node):
        
@@ -39,15 +40,14 @@ class Delay(Node):
 
 ```
 
-딜레이 기능이 필요한 패키지의 폴더에 작성하거나 복사 후 다음 예제와 같이 `import`하여 사용한다.
+딜레이 기능이 필요한 패키지의 폴더에 작성하거나 복사 후 다음 예제의 3행과 같이 `import`하여 사용한다.
 
-`test_delay.py`
+`from ar_track.delay import Delay` 이 문장에서 유추해 볼 때 `ar_track`이라는 패키지에서 딜레이 함수를 사용하려는 것으로 보이며, 그렇다면 `~/robot_ws/ar_track/ar_track`폴더에 `delay.py`파일이 존재 해야 하며,  `delay.py`파일은 `Delay`클라스를 가지고 있어야 한다.
 
 ```python
 import rclpy
 from rclpy.node import Node
-from ar_track.delay import Delay
-
+from ar_track.delay import Delay #  <<--------
 
 class TestDelay(Node):
       
