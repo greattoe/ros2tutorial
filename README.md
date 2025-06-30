@@ -25,8 +25,9 @@
 >3. [Service Server / Client 작성](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/rclpy_2_WritingSimpleSVC_n_Client.md) 
 
 ##### 2. Intermediate level
->1. **[Parameter의 사용 1](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/parameter1.md)**
->2. **[Parameter의 사용 2](https://github.com/greattoe/ros2tutorial/blob/master/rclpy/parameter2.md)**  
+>1. **[Parameter의 사용 1](./rclpy/parameter1.md)**
+>2. **[Parameter의 사용 2](./rclpy/parameter2.md)**  
+>3. **[Parameter의 사용 3](./rclpy/parameter3.md)**  
 
 ##### 3. 로봇 제어
 >**3.1 turtlesim**
