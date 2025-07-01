@@ -963,6 +963,18 @@ ros2 run arduino sub_led_msg
 
  `pub_led_msg.py`노드를 실행한 창에서 키보드 `1`, `0`을 번갈아 누르면서 라즈베리파이에 연결된 아두이노의 LED 점등 상태를 확인한다. 
 
+또는 새 터미널 창에서 다음 명령들을 번갈아 실행한다.
+
+```
+ros2 topic pub --once /led_msg std_msgs/msg/String "data: 'on'
+```
+
+
+
+```
+ros2 topic pub --once /led_msg std_msgs/msg/String "data: 'off'
+```
+
 
 
 
