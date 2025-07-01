@@ -966,13 +966,13 @@ ros2 run arduino sub_led_msg
 또는 새 터미널 창에서 다음 명령들을 번갈아 실행한다.
 
 ```
-ros2 topic pub --once /led_msg std_msgs/msg/String "data: 'on'
+ros2 topic pub --once /led_msg std_msgs/msg/String "data: 'on'"
 ```
 
 
 
 ```
-ros2 topic pub --once /led_msg std_msgs/msg/String "data: 'off'
+ros2 topic pub --once /led_msg std_msgs/msg/String "data: 'off'"
 ```
 
 
