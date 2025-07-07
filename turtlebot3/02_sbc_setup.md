@@ -24,9 +24,9 @@
 
 아래 링크에서 필자가 백업해 둔 라즈베리파이3용 ROS Foxy 이미지를 다운로드 받을 수 있다.
 
-[Foxy 이미지 다운로드 링크1](https://www.dropbox.com/scl/fi/8navhwcxrwxnx56icbw8h/rpi3foxy_img4tb3.zip?rlkey=z7iwu7z1q022uxq9syv2ximle&st=ga5wk34y&dl=0) 
+[Foxy 이미지 다운로드 링크1](https://www.dropbox.com/scl/fi/o5kkhc9d2695twt88bb8i/rpi3foxy_img4tb3.zip?rlkey=6xvjoimi1bk2h0nyvpr9unyxe&st=ez05dd7d&dl=0) 
 
-[Foxy 이미지 다운로드 링크2](https://drive.google.com/file/d/1RMu7tZACiXhLQm5xkVGAiBNnNwv69eMI/view?usp=drive_link)
+[Foxy 이미지 다운로드 링크2](https://drive.google.com/file/d/1q20nuzgn1hscabhbKBddwI6wlI9a2aC6/view?usp=drive_link)
 
 
 

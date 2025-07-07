@@ -4,11 +4,11 @@
 
 ---
 
-## 터틀봇3 bringup 런치 파일 수정
+## `turtlebot3_bringup`패키지의 `launch`파일 수정
 
 **튜토리얼 레벨 :**  Intermediate(중급)
 
-**이 튜토리얼 작성 환경 :**  catkin **/** Ubuntu 16.04 **/** Kinetic
+**이 튜토리얼 작성 환경 :**  colcon **/** Ubuntu 20.04 **/** Foxy
 
 **튜토리얼 목록 :** [README.md](../../README.md)
 
@@ -285,6 +285,168 @@ $ ros2 topic list
 /tf
 /tf_static
 ```
+
+임무장비로 설치한 리프트 제어노드를 실행 하려면 다음 명령을 실행해야 한다.
+
+``` bash
+ros2 run lift_ctrl lift_ctrl
+```
+
+ `camera.launch.py`파일에 다음 내용을 추가하여 `~/turtlebot3_ws/src/turtlebot3/turtlebot3_bringup/launch/lift.launch.py`로 저장한다.
+
+```python
+
+
+        Node(
+            package='lift_ctrl',
+            executable='lift_ctrl',
+            output='screen'
+        ),
+    ])
+```
+
+
+
+편집이 완료된  `camera.launch.py`는 다음과 같다.
+
+```python
+#!/usr/bin/env python3
+#
+# Copyright 2019 ROBOTIS CO., LTD.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# ...
+
+import os
+
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import LaunchConfiguration, ThisLaunchFileDir
+from launch_ros.actions import Node
+
+
+def generate_launch_description():
+    TURTLEBOT3_MODEL = os.environ['TURTLEBOT3_MODEL']
+
+    usb_port = LaunchConfiguration('usb_port', default='/dev/ttyACM0')
+
+    tb3_param_dir = LaunchConfiguration(
+        'tb3_param_dir',
+        default=os.path.join(
+            get_package_share_directory('turtlebot3_bringup'),
+            'param',
+            TURTLEBOT3_MODEL + '.yaml'))
+
+    lidar_pkg_dir = LaunchConfiguration(
+        'lidar_pkg_dir',
+        default=os.path.join(get_package_share_directory('hls_lfcd_lds_driver'), 'launch'))
+
+    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
+
+    return LaunchDescription([
+        DeclareLaunchArgument(
+            'use_sim_time',
+            default_value=use_sim_time,
+            description='Use simulation (Gazebo) clock if true'),
+
+        DeclareLaunchArgument(
+            'usb_port',
+            default_value=usb_port,
+            description='Connected USB port with OpenCR'),
+
+        DeclareLaunchArgument(
+            'tb3_param_dir',
+            default_value=tb3_param_dir,
+            description='Full path to turtlebot3 parameter file to load'),
+
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource(
+                [ThisLaunchFileDir(), '/turtlebot3_state_publisher.launch.py']),
+            launch_arguments={'use_sim_time': use_sim_time}.items(),
+        ),
+
+        IncludeLaunchDescription(
+            PythonLaunchDescriptionSource([lidar_pkg_dir, '/hlds_laser.launch.py']),
+            launch_arguments={'port': '/dev/ttyUSB0', 'frame_id': 'base_scan'}.items(),
+        ),
+
+        Node(
+            package='turtlebot3_node',
+            executable='turtlebot3_ros',
+            parameters=[tb3_param_dir],
+            arguments=['-i', usb_port],
+            output='screen'
+        ),
+
+        Node(
+            package='raspicam2',
+            executable='raspicam2_node',
+            parameters=[os.path.join(
+                get_package_share_directory('raspicam2'),
+                'cfg',
+                'params.yaml')],
+            output='screen'
+        ),
+
+        Node(
+            package='lift_ctrl',
+            executable='lift_ctrl',
+            output='screen'
+        ),
+    ])
+
+```
+
+
+
+빌드를 위해 `~/turtlebot3_ws`로 작업 경로 변경.
+
+```
+cd ~/turtlebot3_ws
+```
+
+`turtlebot3_bringup`패키지만 빌드
+
+```
+colcon build --symlink-install --packages-select turtlebot3_bringup
+```
+
+빌드결과 반영
+
+```
+source ./install/local_setup.bash
+```
+
+`lift.launch.py` 실행
+
+```
+ros2 launch turtlebot3_bringup lift.launch.py
+```
+
+Remote PC(노트북)에서 `topic list`확인
+
+```bash
+ ros2 topic list 
+/battery_state#<<--------------turtlebor3_bringup
+/camera/image/camera_info# <<--raspicam2_node
+/camera/image/compressed# <<---raspicam2_node
+/cmd_vel#<<--------------------turtlebor3_bringup
+/imu# <<-----------------------turtlebor3_bringup
+/joint_states#<<---------------turtlebor3_bringup
+/lift_msg# <<------------------lift_ctrl
+/magnetic_field#<<-------------turtlebor3_bringup
+/odom#<<-----------------------turtlebor3_bringup
+/parameter_events#<<-----------ros2 topic for managing system and status monitoring 
+/robot_description#<<----------turtlebor3_bringup
+/rosout#<<---------------------ros2 topic for managing system and status monitoring 
+/scan#<<-----------------------turtlebor3_bringup
+/sensor_state#<<---------------turtlebor3_bringup
+/tf#<<-------------------------turtlebor3_bringup
+/tf_static#<<------------------turtlebor3_bringup
+```
+
+`turtlebot3_bringup`관련토픽, `raspicam2_node`관련 토픽, `lift_ctrl`노드 관련 토픽들을 모두 확인할 수 있다.
 
 
 
