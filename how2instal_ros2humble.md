@@ -126,7 +126,65 @@ ros2 run demo_nodes_py listener
 [INFO] [1785449786.589604571] [listener]: I heard: [Hello World: 9]
 ```
 
-여기까지 확인되면 ROS가 정상적으로 설치된 것을 확인할 수 있다. 이제 ROS코드를 작성하고 빌드하는 
+여기까지 ROS 설치가 정상적으로 이루어진 것을 확인했다.
+
+
+
+
+
+##### ROS2 개발 툴 설치
+
+ROS2 로봇 프로그래밍에 필요한 소프트웨어 들을 설치한다.
+
+
+```
+sudo apt update && sudo apt install -y \
+build-essential \
+  cmake \
+  git \
+  libbullet-dev \
+  python3-colcon-common-extensions \
+  python3-flake8 \
+  python3-pip \
+  python3-pytest-cov \
+  python3-rosdep \
+  python3-setuptools \
+  python3-vcstool \
+  wget
+```
+
+
+
+
+```
+python3 -m pip install -U \
+  argcomplete \
+  flake8-blind-except \
+  flake8-builtins \
+  flake8-class-newline \
+  flake8-comprehensions \
+  flake8-deprecated \
+  flake8-docstrings \
+  flake8-import-order \
+  flake8-quotes \
+  pytest-repeat \
+  pytest-rerunfailures \
+  pytest
+```
+
+
+
+
+```
+sudo apt install --no-install-recommends -y \
+  libasio-dev \
+  libtinyxml2-dev \
+  libcunit1-dev
+```
+
+
+
+
 
 #### ROS2 개발환경 설정
 
