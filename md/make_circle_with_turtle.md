@@ -181,7 +181,7 @@ source ~/robot_ws/instal/local_setup.bash
 ros2 run turtle_pkg make_circle
 ```
 
-`turtlesim`패키지의 거북이가 원을 그리며 니동하는 것을 확인한다.
+`turtlesim`패키지의 거북이가 원을 그리며 이동하는 것을 확인한다.
 
 
 
