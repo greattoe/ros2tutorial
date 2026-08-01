@@ -10,7 +10,7 @@
       <img src="./md/img/humble-small.png"/>
     </td>
     <td>
-      ROS2 Humble에 대응하는 ROS 우분투 호환성 매트릭스(Compatibility Matrix)는 우분투 22.04이다. 따라서 우분투 22.04 설치가 선행되어야 한다.
+      ROS2 Humble에 대응하는 ROS 우분투 호환성 매트릭스(Compatibility Matrix)는 우분투 22.04이다. 따라서 ROS Humble 설치 이전에 우분투 22.04 설치가 선행되어야 한다.
     </td>
   </tr>
 </table>
