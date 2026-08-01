@@ -40,7 +40,7 @@ export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrast
 curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo ${UBUNTU_CODENAME:-${VERSION_CODENAME}})_all.deb"
 ```
 
-```
+```bash
 sudo dpkg -i /tmp/ros2-apt-source.deb
 ```
 
@@ -52,7 +52,7 @@ sudo dpkg -i /tmp/ros2-apt-source.deb
 sudo apt update
 ```
 
-```
+```bash
 sudo apt upgrade
 ```
 
@@ -84,11 +84,11 @@ source /opt/ros/humble/setup.bash
 
 `talker` 퍼블리셔 노드 실행
 
-```
+```bash
 ros2 run demo_nodes_cpp talker
 ```
 
-```
+```bash
 ros2 run demo_nodes_cpp talker
 [INFO] [1785449778.587753049] [talker]: Publishing: 'Hello World: 1'
 [INFO] [1785449779.587720274] [talker]: Publishing: 'Hello World: 2'
@@ -104,17 +104,17 @@ ros2 run demo_nodes_cpp talker
 
 다른 터미널 창을 열고 역시 ROS 2 환경 설정을 위한 설정 스크립트를 소싱한 후, 
 
-```
+```bash
 source /opt/ros/humble/setup.bash
 ```
 
 ```listener``` 서브스크라이버 노드를 구동하여 동작을 확인한다.
 
-```
+```bash
 ros2 run demo_nodes_py listener
 ```
 
-```
+```bash
 ros2 run demo_nodes_py listener
 [INFO] [1785449779.598723767] [listener]: I heard: [Hello World: 2]
 [INFO] [1785449780.589404670] [listener]: I heard: [Hello World: 3]
@@ -137,7 +137,7 @@ ros2 run demo_nodes_py listener
 ROS2 로봇 프로그래밍에 필요한 소프트웨어 들을 설치한다.
 
 
-```
+```bash
 sudo apt update && sudo apt install -y \
 build-essential \
   cmake \
@@ -156,7 +156,7 @@ build-essential \
 
 
 
-```
+```bash
 python3 -m pip install -U \
   argcomplete \
   flake8-blind-except \
@@ -175,7 +175,7 @@ python3 -m pip install -U \
 
 
 
-```
+```bash
 sudo apt install --no-install-recommends -y \
   libasio-dev \
   libtinyxml2-dev \
@@ -186,17 +186,35 @@ sudo apt install --no-install-recommends -y \
 
 
 
+##### ROS2 삭제
+
+ROS2 Humble 운영 중 모종의 이유로 재설치할 필요가 생긴다면 다음 명령으로 삭제할 수 있다.
+
+```bash
+sudo apt remove '~nros-humble-*' && sudo apt autoremove
+```
+
+앞서 ROS2 설치 시 ROS2 저장소 구성을 위해 설치했던`ros2-apt-source` 패키지도 삭제하려면 다음 명령을 실행한다.
+
+```bash
+sudo apt remove '~nros-humble-*' && sudo apt autoremove
+```
+
+
+
+
+
 #### ROS2 개발환경 설정
 
 ##### 워크스페이스 폴더 생성
 
-```
+```bash
 mkdir -p ~/robot_ws/src
 ```
 
 워크스페이스 폴더의 내용 확인
 
-```
+```bash
 ls ~/robot_ws
 src
 
@@ -206,7 +224,7 @@ src
 
 빌드를 위해 워크스페이스로 경로 변경
 
-```
+```bash
 cd ~/robot_ws
 ```
 
@@ -214,22 +232,21 @@ cd ~/robot_ws
 
 ROS 2 환경 설정을 위한 설정 스크립트 소싱
 
-```
-source /opt/ros/foxy/setup.bash
+```bash
+source /opt/ros/humble/setup.bash
 ```
 
 빌드
 
-```
-colcon build --symlink-install                     
-Summary: 0 packages finished [0.17s]
+```bash
+colcon build --symlink-install
 ```
 
 
 
 빌드 후, 워크스페이스 내용 확인
 
-```
+```bash
 ls
 build  install  log  src
 ```
@@ -242,11 +259,56 @@ build  install  log  src
 
 Run Commands 설정을 위해 `~/.bashrc`파일을 편집한다.
 
-```
+```bash
 gedit ~/.bashrc
 ```
 
-`~/.bashrc`끝부분에 `fi`가 적힌 행이 2줄 연속으로 나타나는 부분을 찾는다. (116, 117행 즈음)
+`~/.bashrc`끝부분에 아래 내용 뒤에
+
+```
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+```
+
+다음을 추가한다.
+
+```bash
+######## SETTINGS FOR ROS2 HUMBLE WITH TURTLEBOT3 begin #################
+
+source /opt/ros/humble/setup.bash
+source ~/robot_ws/install/local_setup.bash
+source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+source /usr/share/colcon_cd/function/colcon_cd.sh
+
+alias sb='source ~/.bashrc'
+alias python='python3'
+alias cls='clear'
+alias sl='source ~/robot_ws/install/local_setup.bash'
+alias cw='cd ~/robot_ws'
+alias cs='cd ~/robot_ws/src'
+alias ccd='colcon_cd'
+alias cb='cd ~/robot_ws && colcon build --symlink-install && source ~/.bashrc'
+alias cbp='cd ~/robot_ws && colcon build --symlink-install --packages-select && source ~/.bashrc'
+
+export _colcon_cd_root=~/robot_ws
+export ROS_DOMAIN_ID=109
+#export ROS_NAMESPACE=robot1
+export TURTLEBOT3_MODEL=burger
+
+######## SETTINGS FOR ROS2 HUMBLE WITH TURTLEBOT3 end ##################
+```
+
+
+
+
 
 ```bash
 # ~/.bashrc: executed by bash(1) for non-login shells.
@@ -609,8 +671,8 @@ alias gs='git status'
 alias gp='git pull'
 alias sb='source ~/.bashrc'
 
-alias circle_turtle='ros2 topic pub /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 2.0} }"'
-alias stop_turtle='ros2 topic pub /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0} }"'
+alias circle='ros2 topic pub /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 2.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 2.0} }"'
+alias stop='ros2 topic pub /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0} }"'
 
 ```
 

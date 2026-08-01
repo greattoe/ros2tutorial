@@ -1,4 +1,4 @@
-## rospy_tutorial/ Tutorials/ WritingPublisherSubscriber
+## rclpy Tutorials Writing simple Publisher & Subscriber
 
 
 
@@ -10,7 +10,7 @@
 
 **튜토리얼 레벨 :**  초급
 
-**빌드 환경 :**  colcon **/** Ubuntu 20.04 **/** Foxy
+**빌드 환경 :**  colcon **/** Ubuntu 22.04 **/** Humble
 
 ---
 
@@ -40,10 +40,10 @@ cd ~/robot_ws/src/py_pubsub/py_pubsub
 ls__init__.py
 ```
 
-`__init__.py`파일과 같은 경로에 토픽 퍼블리셔 노드  `minimal_pub.py`를 작성한다. 
+`__init__.py`파일과 같은 경로에 토픽 퍼블리셔 노드  `example_pub.py`를 작성한다. 
 
 ```
-gedit minimal_pub.py &
+gedit example_pub.py &
 ```
 
 ```python
@@ -53,10 +53,10 @@ from rclpy.node import Node
 from std_msgs.msg import String
 
 
-class MinimalPublisher(Node):
+class ExamplePub(Node):
 
     def __init__(self):
-        super().__init__('minimal_publisher')
+        super().__init__('example_pub')
         self.publisher_ = self.create_publisher(String, 'hello', 10)
         timer_period = 0.5  # seconds
         self.timer = self.create_timer(timer_period, self.timer_callback)
@@ -67,20 +67,20 @@ class MinimalPublisher(Node):
         msg.data = 'Hello World: %d' % self.i
         self.publisher_.publish(msg)
         self.get_logger().info('Publishing: "%s"' % msg.data)
-        self.i += 1
+        self.i = self.i + 1
 
 
 def main(args=None):
     rclpy.init(args=args)
 
-    minimal_publisher = MinimalPublisher()
+    node = MinimalPublisher()
 
-    rclpy.spin(minimal_publisher)
+    rclpy.spin(node)
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
-    minimal_publisher.destroy_node()
+    node.destroy_node()
     rclpy.shutdown()
 
 
@@ -135,28 +135,32 @@ setup(
 ```python
 entry_points={
         'console_scripts': [
-                'talker = py_pubsub.minimal_pub:main',
+                'example_pub = py_pubsub.example_pub:main',
         ],
 },
 ```
 
-##### 서브스크라이버 작성
 
-`minimal_pub.py`노드가 발행하는 토픽을 구독하는 구독자 노드 `minimal_sub.py`노드 작성을 위해 `minimal_pub.py`노드가를 작성했던 폴더로 경로를 변경한다. 
 
-```
+
+
+#### 서브스크라이버 작성
+
+`minimal_pub.py`노드가 발행하는 토픽을 구독하는 구독자 노드 `example_sub.py`노드 작성을 위해 `example_pub.py`노드를 작성했던 폴더로 경로를 변경한다. 
+
+```bash
 cd pypubsub
 ```
 
 같은 경로에 `__init__.py`와 `minimal_pub.py`가 있는지 확인한 후 `minimal_sub.py`노드를 작성한다. 
 
-```
+```bash
 ls
 __init__.py  minimal_pub.py
 ```
 
-```
-gedit minimal_sub.py
+```bash
+gedit minimal_sub.py &
 ```
 
 ```python
@@ -170,12 +174,7 @@ class MinimalSubscriber(Node):
 
     def __init__(self):
         super().__init__('minimal_subscriber')
-        self.subscription = self.create_subscription(
-            String,
-            'hello',
-            self.listener_callback,
-            10)
-        self.subscription  # prevent unused variable warning
+        self.create_subscription( String, 'hello', 10)
 
     def listener_callback(self, msg):
         self.get_logger().info('I heard: "%s"' % msg.data)
@@ -184,9 +183,9 @@ class MinimalSubscriber(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    minimal_subscriber = MinimalSubscriber()
+    node = MinimalSubscriber()
 
-    rclpy.spin(minimal_subscriber)
+    rclpy.spin(node)
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
@@ -199,17 +198,11 @@ if __name__ == '__main__':
     main()
 ```
 
-```
-<description>Examples of minimal publisher/subscriber using rclpy</description>
-<maintainer email="you@email.com">Your Name</maintainer>
-<license>Apache License 2.0</license>
-```
 
 
+##### `setup.py`파일에 서브스크라이버 노드의 `entry_point` 추가
 
-##### 서브스크라이버 노드의 `entry_point` 추가
-
-앞서 작성한 `minimal_pu.py`노드를 `setup.py`파일의 `'console_scripts'` 필드에 추가한 것과 같이 `minimal_sub.py` 노드도 추가한다. 이를 위 작업 경로를 한단계 상위 폴더로 변경한다. 
+앞서 작성한 `example_pub.py`노드를 `setup.py`파일의 `'console_scripts'` 필드에 추가한 것과 같이 `example_sub.py` 노드도 추가한다. 이를 위 작업 경로를 한 단계 상위 폴더( `~/robot_ws/src/py_pubsub` )로 변경한다. 
 
 ```
 cd ..
@@ -245,19 +238,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-                'talker   = py_pubsub.minimal_pub:main',
-                'listener = py_pubsub.minimal_sub:main',
+                'example_pub   = py_pubsub.example_pub:main',
+                'example_sub   = py_pubsub.example_sub:main',
         ],
 },
-```
-
-
-
-`package.xml` 파일의 위 `<license>` 태그 뒤에 아래의 `<exec_depend>` 추가 
-
-```
-<exec_depend>rclpy</exec_depend>
-<exec_depend>std_msgs</exec_depend>
 ```
 
 
@@ -288,10 +272,14 @@ colcon build --symlink-install --packages-select py_pubsub
 . ~/robot_ws/install/local_setup.bash
 ```
 
-퍼블리셔노드 `talker` 실행
+퍼블리셔노드 `example_pub` 실행
 
 ```
-ros2 run py_pubsub talker
+ros2 run py_pubsub example_pub
+```
+
+```
+ros2 run py_pubsub example_pub
 [INFO]: Publishing: "Hello World: 0"
 [INFO]: Publishing: "Hello World: 1"
 [INFO]: Publishing: "Hello World: 2"
@@ -304,10 +292,14 @@ ros2 run py_pubsub talker
 
 
 
-구독자 노드 `listener` 실행
+구독자 노드 `example_sub` 실행
 
 ```
-ros2 run py_pubsub listener 
+ros2 run py_pubsub example_sub
+```
+
+```
+ros2 run py_pubsub example_sub 
 [INFO]: I heard: "Hello World: 0"
 [INFO]: I heard: "Hello World: 1"
 [INFO]: I heard: "Hello World: 2"
@@ -317,14 +309,6 @@ ros2 run py_pubsub listener
 [INFO]: I heard: "Hello World: 6"
 [INFO]: I heard: "Hello World: 7"
 ```
-
-
-
-
-
-
-
-
 
 
 
