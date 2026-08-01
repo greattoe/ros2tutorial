@@ -2,7 +2,20 @@
 
 #### ROS2 Humble 설치
 
-ROS2 Humble에 대응하는 ROS 우분투 호환성 매트릭스(Compatibility Matrix)는 우분투 22.04이다. 따라서 우분투 22.04 설치가 선행되어야 한다.
+<table>
+<tr>
+<table>
+  <tr>
+    <td width="180">
+      <img src="./md/img/humble-small.png"/>
+    </td>
+    <td>
+      ROS2 Humble에 대응하는 ROS 우분투 호환성 매트릭스(Compatibility Matrix)는 우분투 22.04이다. 따라서 우분투 22.04 설치가 선행되어야 한다.
+    </td>
+  </tr>
+</table>
+</tr>
+</table>
 
 **[Ubuntu 22.04 설치 및 설정]()**
 
@@ -21,3 +34,5 @@ ROS2 Humble에 대응하는 ROS 우분투 호환성 매트릭스(Compatibility M
 **[turtlesim 거북이 키보드 원격제어코드 작성 ](./md/writing_tele_op4turtlesim.md)**
 
 **[turtlesim 거북이 원운동 제어코드 작성 ](./md/make_circle_with_turtle.md)**
+
+**[turtlesim 거북이 pose 서브스크라이버 작성 ](./md/how2subscribe_turtle_pose.md)**

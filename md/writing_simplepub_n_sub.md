@@ -6,7 +6,7 @@
 
 ## 퍼블리셔와 서브스크라이버 작성 
 
-**출처 :**  <https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html>
+**출처 :**  <https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html>
 
 **튜토리얼 레벨 :**  초급
 

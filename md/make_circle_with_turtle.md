@@ -1,8 +1,8 @@
-## rclpy_tutorial/ turtlesim/2_make_circle
+## rclpy_tutorial/ turtlesim/make_circle_with_turtle
 
 ##  
 
-**참조 :**  <https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html>
+**참조 :**  <https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html>
 
 **튜토리얼 레벨 :**  초급
 

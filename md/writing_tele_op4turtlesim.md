@@ -1,8 +1,8 @@
-## rclpy_tutorial/ turtlesim/1_teleop_key
+## rclpy_tutorial/ turtlesim/teleop_key
 
 ##  
 
-**참조 :**  <https://docs.ros.org/en/foxy/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html>
+**참조 :**  <https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Py-Publisher-And-Subscriber.html>
 
 **튜토리얼 레벨 :**  초급
 
