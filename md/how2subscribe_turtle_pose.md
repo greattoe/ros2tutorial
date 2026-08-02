@@ -6,13 +6,26 @@
 
 **튜토리얼 레벨 :**  초급
 
-**빌드 환경 :**  colcon **/** Ubuntu 22.04 **/** Humble
+**빌드 및 운영 환경 :**  colcon **/** Ubuntu 22.04 **/** Humble
 
 
 
-#### `turtlesim`  노드의 거북이의 `pose`토픽을 구독하는 노드를 이미 만들어 둔  `turtle_pkg`패키지에 추가한다.
+#### `turtlesim`  거북이의 `pose`토픽 구독노드 작성#### 
 
-##### 1. `turtlesim`노드의 거북이는 가로, 세로 각각 (0,0)~(11.0,11.0)의 네모난 세상에서 살고 있다. 거북이를 임의의 좌표로 이동시키려면 현재 거북이의 위치를 알아내야 한다. 해당 정보는 `/turtle1/pose`토픽으로 발행되고 있다. 
+##### `pose`토픽
+
+`turtlesim`패키지의 `turtlesim_node`를 구동 후, `ros2 topic list`명령을 실행한 결과는 다음과 같다.
+
+```
+ ros2 topic list 
+/parameter_events
+/rosout
+/turtle1/cmd_vel
+/turtle1/color_sensor
+/turtle1/pose
+```
+
+이 번 튜토리얼에서는 위 토픽 목록 중 `/turtle1/pose`토픽 구독 노드를 만들어보려 한다. ROS에서 `pose`는 위치와 방향을 나타낸다.
 
 `turtlesim` 패키지의 `turtlesim_node` 와 `turtle_teleop_key` 노드를 실행 후, `/turtle1/pose`토픽을 `echo` 시킨다. 
 
@@ -32,7 +45,7 @@ angular_velocity: 0.0
 ---
 ```
 
-
+위 내용 중  `x`, `y`값이위치에 해당하고, `theata`값이 방향에 해당한다. 
 
 `turtle_teleop_key` 노드를 실행하여, 거북이를 이곳, 저곳으로 이동 시키며 `echo`시킨 `pose` 토픽의 변화를 살펴보자
 
@@ -40,17 +53,48 @@ angular_velocity: 0.0
 ros2 run turtlesim turtle_teleop_key
 ```
 
-`ros2 topic type` 명령으로 `/turtle1/pose`토픽의 형식을 알아보자
+
+
+다음은 `turtlesim`거북이 위치와 그에 따른 `turtle1/pose`토픽의 x, y 값의 변화를 표시한 그림이다.
+
+<img src="./img/turtlsim_bottom_left_with_arrow.png" style="zoom:27%;" /><img src="./img/turtlsim_center.png" style="zoom: 27%;" /><img src="./img/turtlsim_top_right_with_arrow.png" style="zoom:27%;" />
 
 ```
+(x:0.0, y:0.0)       | () x:5.54, y:5.54) | (x:11.8, y:11.8)
+```
+
+
+
+다음은 `turtlesim`거북이가 바라보는 방향에 따른 `/turtle1/pose`토픽의 `theta`값의 변화를 각도로 표시한 것이다.
+
+```
+
+ 135   90    45
+   \   |    /
+    \  |   /
+     \ |  /
+      \|/
+ 180 <-+-------> 0
+      /|\
+     / | \
+    /  |  \
+   /   |   \
+-135 -90   -45
+```
+
+
+
+`ros2 topic type` 명령으로 `/turtle1/pose`토픽의 형식을 알아보자
+
+```bash
 ros2 topic type /turtle1/pose 
 turtlesim/msg/Pose
 ```
 
 `turtlesim`거북이의 `pose`토픽 구독노드 `sub_turtle_pose.py`작성을 위해 작업 경로를 변경한다.
 
-```
-cd ~/robot_ws/src/turtle_pkg/turtle_pkg/script
+```bash
+cd ~/robot_ws/src/turtle_pkg/turtle_pkg
 ```
 
 
@@ -59,7 +103,7 @@ cd ~/robot_ws/src/turtle_pkg/turtle_pkg/script
 
 
 
-```
+```bash
 gedit sub_turtle_pose.py &
 ```
 
@@ -147,7 +191,7 @@ if __name__ == '__main__':
 
 `setup.py` 파일 편집을 위해 경로를 `~/robot_ws/src/turtle_pkg`로 변경한다. 
 
-```
+```bash
 cd ~/robot_ws/src/turtle_pkg
 ```
 
@@ -155,7 +199,7 @@ cd ~/robot_ws/src/turtle_pkg
 
 `setup.py` 파일 편집
 
-```
+```bash
 gedit setup.py &
 ```
 
@@ -203,25 +247,25 @@ setup(
 
 패키지 빌드를 위해 작업 경로를 `~/robot_ws`로 변경한다.
 
-```
+```bash
 cd ~/robot_ws
 ```
 
 빌드
 
-```
+```bash
 colcon build --symlink-install
 ```
 
 새로 빌드한 패키지 정보 반영을 위해 다음 명령을 실행한다.
 
-```
-. instal/local_setup.bash
+```bash
+source ~/robot_ws/install/local_setup.bash
 ```
 
 `sub_turtle_pose` 노드를 구동하여 `turtlesim` 노드의 거북이의 `pose`가 출력되는 지를 확인한다. 
 
-```
+```bash
 ros2 run turtle_pkg sub_turtle_pose 
 x = "0.0", y="0.0", theta="0.0(deg)
 x = "5.544444561004639", y="5.544444561004639", theta="163.64(deg)
