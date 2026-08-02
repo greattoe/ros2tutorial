@@ -172,24 +172,25 @@ export TURTLEBOT3_MODEL=burger
 **5.3 원격 조종 노드 구동**
 
 ```bash
-roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+ros2 run turtlebot3_teleop teleop_keyboard
 ```
 
 ```bash
-oslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+ros2 run turtlebot3_teleop teleop_keyboard 
 
- Control Your TurtleBot3!
- ---------------------------
- Moving around:
+Control Your TurtleBot3!
+---------------------------
+Moving around:
         w
    a    s    d
         x
 
- w/x : increase/decrease linear velocity
- a/d : increase/decrease angular velocity
- space key, s : force stop
+w/x : increase/decrease linear velocity (Burger : ~ 0.22, Waffle and Waffle Pi : ~ 0.26)
+a/d : increase/decrease angular velocity (Burger : ~ 2.84, Waffle and Waffle Pi : ~ 1.82)
 
- CTRL-C to quit
+space key, s : force stop
+
+CTRL-C to quit
 ```
 
 
