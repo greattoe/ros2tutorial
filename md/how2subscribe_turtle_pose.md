@@ -57,10 +57,10 @@ ros2 run turtlesim turtle_teleop_key
 
 다음은 `turtlesim`거북이 위치와 그에 따른 `turtle1/pose`토픽의 x, y 값의 변화를 표시한 그림이다.
 
-<img src="./img/turtlsim_bottom_left_with_arrow.png" style="zoom:27%;" /><img src="./img/turtlsim_center.png" style="zoom: 27%;" /><img src="./img/turtlsim_top_right_with_arrow.png" style="zoom:27%;" />
+<img src="./img/turtlsim_bottom_left_with_arrow.png" width="33%;" /><img src="./img/turtlsim_center.png" width="33%;" /><img src="./img/turtlsim_top_right_with_arrow.png" width="33%;" />
 
 ```
-(x:0.0, y:0.0)       | () x:5.54, y:5.54) | (x:11.8, y:11.8)
+(x:0.0, y:0.0)                     | (x:5.54, y:5.54)                  | (x:11.8, y:11.8)
 ```
 
 
