@@ -132,20 +132,13 @@ source ~/turtlebot3_ws/install/local_setup.bash
 export TURTLEBOT3_MODEL=burger
 ```
 
-터미널을 열 때 마다 자동으로 적용되도록 `~/.bashrc`에 `export TURTLEBOT3_MODEL=burger`를 추가하자.
+`turtlebot3_gazebo`패키지의 원활한 구동을 위해 몇가지 설정을 `~/.bashrc`에 반영해 두자. 반영할 내용은 다음과 같다.
 
 ```bash
-gedit ~/.bashrc
-```
+source /usr/share/gazebo/setup.sh
+source /usr/share/gazebo/setup.sh
+export TURTLEBOT3_MODEL=burger
 
-`export ROS_HOSTNAME`을 찾아서 그다음 행에 에 `export TURTLEBOT3_MODEL=burger` 추가 후, 저장, 종료한다.
-
-터미널을 새로열면  `export TURTLEBOT3_MODEL=burger`가 자동 반영된다.
-
-현재 이미 열려 있는터미널에 반영하려면 해당 터미널에서`~/.bashrc`를 `source`한다.
-
-```bash
-source ~/.bashrc
 ```
 
 
