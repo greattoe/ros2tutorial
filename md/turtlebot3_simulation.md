@@ -33,8 +33,7 @@ sudo apt install ros-humble-gazebo-*
 Cartographer는 SLAM(Simultaneous Localization and Mapping)방법 중 한가지이다.
 
 ```bash
-sudo apt install ros-humble-cartographer\
-sudo apt install ros-humble-cartographer-ros
+sudo apt install ros-humble-cartographer ros-humble-cartographer-ros
 ```
 
 
@@ -44,8 +43,7 @@ sudo apt install ros-humble-cartographer-ros
  #### Navigation2 설치
 
 ```bash
-sudo apt install ros-humble-navigation2 Navigation2\
-sudo apt install ros-humble-nav2-bringup
+sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup
 ```
 
 
@@ -166,7 +164,7 @@ export TURTLEBOT3_MODEL=burger
 **5.2 SLAM 구동**
 
 ```bash
- ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py use_sim_time:=true
+ ros2 launch turtlebot3_cartographer cartographer.launch.py use_sim_time:=True
 ```
 
 **5.3 원격 조종 노드 구동**
@@ -243,8 +241,8 @@ export TURTLEBOT3_MODEL=burger
 
 **6.4 키보드 원격 조종 노드 실행**
 
-```
-roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+```bash
+ros2 run turtlebot3_teleop teleop_keyboard
 ```
 
 로봇을 천천히 움직여 녹색 점들로 표시된 지도상에서의 추정된 로봇의 위치를 일치시킨다.
