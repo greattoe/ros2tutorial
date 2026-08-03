@@ -25,7 +25,7 @@ cd ~/robot_ws/src
 `rclpy` 와 `std_msgs` 에 의존성을 갖는 패키지 `py_pubsub` 생성
 
 ```
-ros2 pkg create py_pubsub --build-type ament_python --dependencies rclpy std_msgs
+ros2 pkg create py_pubsub --build-type ament_python
 ```
 
 `~/robot_ws/src/pypubsub/py_pubsub`폴더로 작업 경로 변경
