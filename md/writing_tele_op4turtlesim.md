@@ -113,7 +113,7 @@ angular:
 *작업* 경로를 워크스페이스`~/robot_ws` 의 `src` 폴더로 변경한다. 
 
 ```bash
-cd ~/robot_ws/srcb
+cd ~/robot_ws/src
 ```
 
 `turtlesim` 패키지의 거북이 관련 사용자 정의 패키지 `turtle_pkg` 생성
