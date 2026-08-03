@@ -243,14 +243,6 @@ os2 run turtle_pkg sub_turtle_pose
 
 
 
-
-
-
-
-
-
-
-
 [튜토리얼 목록](../README.md) 
 
 
