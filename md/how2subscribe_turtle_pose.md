@@ -119,70 +119,26 @@ from rclpy.node import Node
 
 from turtlesim.msg import Pose
 from geometry_msgs.msg import Twist
-from math import radians, degrees, sqrt, atan2
+from math import radians, degrees
 
 
-class Turtle_Pose(Node):
+class TurtlePose(Node):
 
     def __init__(self):
-        self.pose = Pose()
         self.tw = Twist()
         self.cnt_sec = 0
         super().__init__('turtle_pose_sub')
-        self.subscription = self.create_subscription(
-            Pose,		#topic type
-            '/turtle1/pose',	#topic name
-            self.get_pose,
-            10)
-        self.pub = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
-        #self.timer    = self.create_timer(1, self.count_sec)
-        self.subscription  # prevent unused variable warning
+        self.create_subscription(Pose, '/turtle1/pose',self.get_pose, 10)
 
     def get_pose(self, msg):
-        self.pose = msg
-        self.get_logger().info('x = "%s", y="%s", theta="%s"' %(self.pose.x, self.pose.y, round(degrees(self.pose.theta),2)))
-
-    def rotate(self, ang):
-        tw = Twist()
-        pub = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
-        target = self.pose.theta + ang
         
-        if target >= radians(180):
-            target =  radians(180)
-        elif target <= radians(-180):
-            target =  radians(-180)
-            
-        if target > self.pose.theta:
-            tw.angular.z = 1.0
-            while target > self.pose.theta:
-                rclpy.spin_once(self, timeout_sec=0.01)
-                pub.publish(tw)
-            tw.angular.z = 0.0
-            pub.publish(tw)
-            
-        elif target < self.pose.theta:
-            tw.angular.z = -1.0
-            while target < self.pose.theta:
-                rclpy.spin_once(self, timeout_sec=0.01)
-                pub.publish(tw)
-            tw.angular.z = 0.0
-            pub.publish(tw)
-        else: #target = self.pose.theta
-            tw.angular.z = 0.0
-            pub.publish(tw)
-                
+        self.get_logger().info('x = "%s", y="%s", theta="%s"' %(round(msg.x, 2), round(msg.y, 2), round(degrees(msg.theta),2)))
 
 def main(args=None):
     rclpy.init(args=args)
-    node= Turtle_Pose()
     try:
-        ang = radians(float(input("input rotation (deg): ")))
-        print(degrees(ang))
-        node.rotate(ang)
-        while rclpy.ok():
-            rclpy.spin_once(node, timeout_sec=0.01)
-            pass
-        sys.exit(1)
+        node= TurtlePose()
+        rclpy.spin(node)
     except KeyboardInterrupt:
         node.get_logger().info('Keyboard Interrupt(SIGINT)')
     finally:
@@ -272,11 +228,13 @@ source ~/robot_ws/install/local_setup.bash
 `sub_turtle_pose` 노드를 구동하여 `turtlesim` 노드의 거북이의 `pose`가 출력되는 지를 확인한다. 
 
 ```bash
-ros2 run turtle_pkg sub_turtle_pose 
-x = "0.0", y="0.0", theta="0.0(deg)
-x = "5.544444561004639", y="5.544444561004639", theta="163.64(deg)
-x = "5.544444561004639", y="5.544444561004639", theta="163.64(deg)
-x = "5.544444561004639", y="5.544444561004639", theta="163.64(deg)
+os2 run turtle_pkg sub_turtle_pose
+[INFO] [1785733848.643926569] [turtle_pose_sub]: x = "5.54", y="5.54", theta="0.0"
+[INFO] [1785733848.651969725] [turtle_pose_sub]: x = "5.54", y="5.54", theta="0.0"
+[INFO] [1785733848.667564783] [turtle_pose_sub]: x = "5.54", y="5.54", theta="0.0"
+[INFO] [1785733848.684353497] [turtle_pose_sub]: x = "5.54", y="5.54", theta="0.0"
+[INFO] [1785733848.700792874] [turtle_pose_sub]: x = "5.54", y="5.54", theta="0.0"
+[INFO] [1785733848.716733634] [turtle_pose_sub]: x = "5.54", y="5.54", theta="0.0"
 ```
 
 

@@ -200,7 +200,7 @@ CTRL-C to quit
 위 오른쪽 그림과 같이 모든 영역을 탐색하여 밝은 영역으로 만들었다면 현재 상태를 지도로 저장한다.
 
 ```bash
-rosrun map_server map_saver -f ~/map
+ros2 run nav2_map_server map_saver_cli -f ~/map
 ```
 
 지도저장 확인
