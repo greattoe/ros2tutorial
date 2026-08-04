@@ -45,8 +45,6 @@
 
 [**터틀봇3 Gazebo 시뮬레이션** ](./md/turtlebot3_simulation.md)
 
-[**터틀봇3 미션 컴퓨터(SBC) 설정** ](./md/how2setup_sbc4turtlebot3.md)
-
 [**터틀봇3 키보드 원격제어코드 작성** ](./md/writing_teleop4turtlebot3.md)
 
 
