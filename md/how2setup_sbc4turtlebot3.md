@@ -203,36 +203,41 @@ sudo apt install ros-humble-demo-nodes-cpp -y
 
 
 
-
-
 #### 터틀봇3 패키지 설치
 
-
+ROS2 Humble을 위한 터틀봇3 패키지는 소스코드로 배포된다.
 
 **의존성 설치**
 
 ```bash
-sudo apt install python3-argcomplete python3-colcon-common-extensions libboost-system-dev build-essential  ros-humble-hls-lfcd-lds-driver ros-humble-turtlebot3-msgs \
-ros-humble-dynamixel-sdk apt install ros-humble-xacro libudev-dev
+sudo apt install python3-argcomplete python3-colcon-common-extensions libboost-system-dev build-essential
 ```
 
-```
-sudo apt install libboost-dev libboost-system-dev -y
-```
-
-```
-sudo apt install libudev-dev -y
+```bash
+sudo apt install ros-humble-hls-lfcd-lds-driver
 ```
 
+```bash
+sudo apt install ros-humble-turtlebot3-msgs
 ```
-sudo apt install ros-humble-xacro -y
+
+```bash
+sudo apt install ros-humble-dynamixel-sdk
+```
+
+```bash
+sudo apt install ros-humble-xacro
+```
+
+```bash
+sudo apt install libudev-dev
 ```
 
 
 
-**워크스페이스 생성 및 경로 변경**
+**워크스페이스 생성 및 소스코드 복제를 위한 경로 변경**
 
-```
+```bash
 $ mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src
 ```
 
@@ -240,37 +245,49 @@ $ mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src
 
 **터틀봇3 패키지 소스코드 복제**
 
-```
+```bash
  git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
 ```
 
 **Lidar(구형) 드라이버 소스코드 복제**
 
-```
+```bash
 git clone -b humble https://github.com/ROBOTIS-GIT/ld08_driver.git
 ```
 
 **Lidar(신형) 드라이버 소스코드 복제**
 
-```
+```bash
 git clone -b humble https://github.com/ROBOTIS-GIT/coin_d4_driver
 ```
 
 
 
-터틀봇3 패키지에서 `turtlebot3_cartographer`와 `turtlebot3_navigation2` 삭제를 위해 경로 변경
+터틀봇3 패키지에서 `turtlebot3_cartographer`와 `turtlebot3_navigation2` 삭제를 위한 경로 변경
 
-```
+```bash
 cd ~/turtlebot3_ws/src/turtlebot3
 ```
 
  `turtlebot3_cartographer`와 `turtlebot3_navigation2` 삭제
 
-```
+```bash
 rm -r turtlebot3_cartographer turtlebot3_navigation2
 ```
 
 
+
+패키지 빌드를 위해 경로 변경 및 ROS 설정 반영
+
+```bash
+cd ~/turtlebot3_ws/ && source /opt/ros/humble/setup.bash
+```
+
+모든 패키지 빌드
+
+```
+colcon build --symlink-install --parallel-workers 1
+```
 
 
 
@@ -299,20 +316,85 @@ $ source ~/.bashrc
 #### OpenCR용 USB 포트 설정
 
 ```bash
-$ sudo cp `ros2 pkg prefix turtlebot3_bringup`/share/turtlebot3_bringup/script/99-turtlebot3-cdc.rules /etc/udev/rules.d/
-$ sudo udevadm control --reload-rules
-$ sudo udevadm trigger
+sudo cp `ros2 pkg prefix turtlebot3_bringup`/share/turtlebot3_bringup/script/99-turtlebot3-cdc.rules /etc/udev/rules.d/
+```
+
+```bash
+sudo udevadm control --reload-rules
+```
+
+```bash
+sudo udevadm trigger
 ```
 
 
 
-```
+```bash
 echo 'export LDS_MODEL=LDS-01' >> ~/.bashrc # If you are using LDS-01
 $ echo 'export LDS_MODEL=LDS-02' >> ~/.bashrc # If you are using LDS-02
 $ echo 'export LDS_MODEL=LDS-03' >> ~/.bashrc # If you are using LDS-03
 ```
 
 
+
+
+
+`~/.bashrc` 수정
+
+```
+nano ~/.bashrc
+```
+
+`~/.bashrc`파일 마지막 부분에서 다음 내용을 찾는다.
+
+```
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+```
+
+
+
+위 내용 이 후에 다음 내용을 추가한다.
+
+
+
+```bash
+
+source /opt/ros/humble/setup.bash
+source ~/turtlebot3_ws/install/local_setup.bash
+source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+source /usr/share/colcon_cd/function/colcon_cd.sh
+alias python='python3'
+alias cls='clear'
+alias ccd='colcon_cd'
+alias cw='cd ~/turtlebot3_ws'
+alias cs='cd ~/turtlebot3_ws/src'
+alias cb='cd ~/turtlebot3_ws && colcon build --symlink-install'
+alias cbp='cd ~/turtlebot3_ws && colcon build --symlink-install --packages-select'
+alias sb='source ~/.bashrc'
+alias sl='source ~/turtlebot3_ws/install/local_setup.bash'
+
+export ROS_DOMAIN_ID=30
+export TURTLEBOT3_MODEL=burger
+export LDS_MODEL=LDS-03_colcon_cd_root= ~/turtlebot3_ws
+```
+
+
+
+편집 내용 저장을 위해`Ctrl`+`S`를 누른 후  `nano`편집기 종료를 위해 `Ctrl`+`X`를 입력한다.
+
+변경된 `~/.bashrc` 반영
+
+```bash
+source ~/.bashrc
+```
 
 
 
