@@ -402,6 +402,14 @@ source ~/.bashrc
 
 
 
+```
+ros2 launch turtlebot3_bringup robot.launch.py
+```
+
+
+
+
+
 [튜토리얼 목록](../README.md) 
 
 
