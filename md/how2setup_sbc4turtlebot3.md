@@ -398,6 +398,40 @@ source ~/.bashrc
 
 
 
+OpenCR 보드 펌웨어 업데이트
+
+```
+ssh pi@[라즈베리파이IP주소]
+```
+
+```
+wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
+```
+
+```
+cd ./opencr_update
+```
+
+```
+sudo dpkg --add-architecture armhf
+```
+
+```
+sudo apt update
+```
+
+```
+sudo apt install libc6:armhf
+```
+
+```
+./update.sh /dev/ttyACM0 burger.opencr
+```
+
+
+
+
+
 [완성된 이미지 다운로드](https://www.dropbox.com/scl/fi/qq7b4k0vx7oirnrjvnb2j/ROS2Humble4RPi4.tar.gz?rlkey=k0wubv4i7x1r1hr4m6rhe4pt9&st=uenpxrwo&dl=0)
 
 
