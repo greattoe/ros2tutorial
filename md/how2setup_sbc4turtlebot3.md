@@ -409,6 +409,33 @@ wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/l
 ```
 
 ```
+wget https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
+--2026-08-05 04:47:10--  https://github.com/ROBOTIS-GIT/OpenCR-Binaries/raw/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
+Resolving github.com (github.com)... 20.200.245.247
+Connecting to github.com (github.com)|20.200.245.247|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR-Binaries/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2 [following]
+--2026-08-05 04:47:11--  https://raw.githubusercontent.com/ROBOTIS-GIT/OpenCR-Binaries/master/turtlebot3/ROS2/latest/opencr_update.tar.bz2
+Resolving raw.githubusercontent.com (raw.githubusercontent.com)... 185.199.111.133, 185.199.108.133, 185.199.109.133, ...
+Connecting to raw.githubusercontent.com (raw.githubusercontent.com)|185.199.111.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 359119 (351K) [application/octet-stream]
+Saving to: ‘opencr_update.tar.bz2’
+
+opencr_update.tar.b 100%[===================>] 350.70K  --.-KB/s    in 0.1s    
+
+2026-08-05 04:47:11 (3.43 MB/s) - ‘opencr_update.tar.bz2’ saved [359119/359119]
+```
+
+
+
+```
+tar -xvf opencr_update.tar.bz2
+```
+
+
+
+```
 cd ./opencr_update
 ```
 
@@ -427,6 +454,10 @@ sudo apt install libc6:armhf
 ```
 ./update.sh /dev/ttyACM0 burger.opencr
 ```
+
+
+
+
 
 
 
