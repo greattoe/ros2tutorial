@@ -4,53 +4,23 @@
 
 ---
 
-**빌드 환경 :**  colcon **/** Ubuntu 20.04 **/** Foxy
+**빌드 환경 :**  colcon **/** Ubuntu 22.04 **/** Humble
 
 ---
 
 노트북에 내장된 웹캠으로 AR Marker를 인식시키거나, 영상처리를 통해 거리 등을 측정하려면 이 때 사용되는 카메라의 보정(camera calibration)작업이 필요하다. 카메라의 보정(camera calibration)작업이 완료되면 `~/.ros/camera_info`폴더가 생성되고, 그안에 `camera.yaml`과 같은 카메라설정 파일이 만들어 지는데, 이 설정파일을 생성하는 것이 카메라의 보정(camera calibration)작업의 목적이라고도 할 수 있다. 카메라의 보정(camera calibration)작업을 위해 우선 노트북에 기본으로 내장된 웹캠이나 USB카메라를 입력소스로 이미지토픽을 발행하는 ROS 노드 패키지인 `usb_cam`노드 패키지를 설치한다. (꼭 `usb_cam`패키지가 아니더라도 해당 카메라를 통해 취득한 영상을 이미지 토픽으로 발행할 수 있는 노드 패키지이면 된다.)
 
-`usb_cam` ROS 패키지 설치.
+이 문서에서는 터틀봇3의 SBC(라즈베리파이)에 부착된 카메라 보정을 설명하고자 한다.
+
+**PC**에`usb_cam` ROS2 Humble Camera Calibration 패키지 설치
 
 ```bash
- sudo apt install ros-foxy-usb-cam
+sudo apt-install hummble-camera-calibration
 ```
 
-이제, 카메라 보정 작업을 위한 `camera calibration` 패키지 설치해야 하는데, 바이너리 설치파일이 제공되지 않으므로 소스코드를 복제하여 빌드해야 한다. 
-
-소스코드를 복제할 워크스페이스의 `src`폴더로 작업경로 변경.
-
+```bash
+source /opt/ros/humble/setup.bash
 ```
-cd ~/robot_ws/src
-```
-
-소스코드 복제.
-
-```
-git clone https://github.com/ros-perception/image_pipeline.git -b foxy
-```
-
-빌드를 위한 워크스페이스로 작업경로 변경
-
-```
-cd ~/robot_ws
-```
-
-빌드(`--packages-select`옵션을 사용하여 `camera_calibration`패키지만 빌드)
-
-```
-colcon build --packages-select camera_calibration
-```
-
-
-
-새로 빌드된 ROS 패키지 정보를 사용자 환경에 반영
-
-```
-source ~/robot_ws/install/local_setup.bash
-```
-
-
 
 
 
@@ -62,75 +32,90 @@ A4용지 크기가  가로 297(mm) x 세로 210(mm) 인 것과 인쇄 마진을 
 
 [칼리브레이션 용 8x6 25mm 패턴 다운로드 ](https://drive.google.com/file/d/1V_mACOCYNFdIYNgH_zZnQTWXKQEg4oCj/view?usp=drive_link) 
 
+ㄴ
 
+**SBC**에서 ``v4l2-camera`의 fps값을 10으로 설정
 
-`usb_cam`노드 실행.
-
-```bash
-ros2 run usb_cam usb_cam_node_exe
+```
+v4l2-ctl -d /dev/video0 --set-parm=10
 ```
 
-`usb_cam`노드 실행 후, 노드 리스트 확인.
 
 
-```bash
-ros2 node list
-/usb_cam
-```
-
-`usb_cam`노드 실행 후, 파라메터 리스트 확인.
+네임스페이스( /camera),  해상도 (320 x 240)을 적용하여 `v4l2_camera` 구동
 
 ```bash
-ros2 param list 
-/usb_cam:
-  auto_white_balance
-  autoexposure
-  autofocus
-  brightness
-  camera_info_url
-  camera_name
-  contrast
-  exposure
-  focus
-  frame_id
-  framerate
-  gain
-  image_height
-  image_raw.format
-  image_raw.jpeg_quality
-  image_raw.png_level
-  image_width
-  io_method
-  pixel_format
-  saturation
-  sharpness
-  use_sim_time
-  video_device
-  white_balance
+ros2 run v4l2_camera v4l2_camera_node \
+  --ros-args \
+  -r __ns:=/camera \
+  -p image_size:="[320,240]"
 ```
 
-위 `ros2 param list`명령 실행결과로부터 `usb_cam`노드와 관련된24개의 `parameter`목록을 볼 수 있다. 이 들 중 `camera_name`의 값을 다음 명령으로 알아보자.
 
-```bash
-gnd0@nt930:~$ ros2 param get /usb_cam camera_name 
-String value is: default_cam
+
+**PC**에서 fps 확인
+
+```
+ros2 topic hz /camera/image_raw
+average rate: 11.045
+	min: 0.077s max: 0.112s std dev: 0.00933s window: 13
+average rate: 10.729
+	min: 0.071s max: 0.125s std dev: 0.01284s window: 24
+average rate: 10.961
+	min: 0.071s max: 0.127s std dev: 0.01330s window: 36
+average rate: 11.130
+	min: 0.071s max: 0.127s std dev: 0.01287s window: 48
+average rate: 11.189
+	min: 0.071s max: 0.127s std dev: 0.01215s window: 60
 ```
 
-`camera_name`파라메터 값이 `default_cam`이라는 것을 일단 기억해 둔다.
+
+
+**PC**에서 해상도 확인
+
+```
+ros2 topic echo /camera/camera_info --once
+```
+
+```
+header:
+  stamp:
+    sec: 1785928265
+    nanosec: 946167365
+  frame_id: ''
+height: 240
+width: 320
+distortion_model: ''
+d: []
+k:
+- 0.0
+- 0.0
+
+```
 
 
 
-`camera_calibration` 노드 실행
+**SBC**에서 `v4l2_camera`구동 시 `~/.ros/camera_info`에 `camera_name.yaml`파일이 없거나 이름이 틀릴경우 다음과같은 경고가 출력된다.
+
+```
+[WARN] [1785930185.619937167] [v4l2_camera]: Camera calibration file /home/pi/.ros/camera_info/mmal_service_16.1.yaml not found
+```
+
+위 메세지에서 `camera_name`이 `mmal_service_16.1`이라는 것을 유추해낼 수 있다.
+
+
+
+**PC**`camera_calibration`노드 실행
 
 ```
 ros2 run camera_calibration cameracalibrator \
   --size 8x6 \
-  --square 0.025 \
-  --camera_name default_cam \
-  --ros-args -r image:=/image_raw -r camera_info:=/camera_info
-
+  --square 0.023 \
+  --camera_name mmal_service_16.1 \
+  --ros-args \
+  -r image:=/camera/image_raw \
+  -r camera_info:=/camera/camera_info
 ```
-
 
 
 | 옵션             | 설명                                                         |
@@ -156,7 +141,7 @@ OK
 
 다음과 같은 카메라 칼리브레이션 화면이 나타나면 준비한 체커보드를 카메라에 비쳐준다.
 
-<img src="/home/gnd0/ros2tutorial/camera_calibration/img/monocular_camera_calibrate_1.png" width="100%">
+<img src="./img/monocular_camera_calibrate_1.png" width="100%">
 
 아래 메세지와 함께 첫 번째 `sample` 추가된 후, 
 
@@ -168,7 +153,7 @@ OK
 
 `checkerboard` 를 이리 저리 움직임에 따라 
 
-<img src="./img/monocular_camera_calibrate_2.png" width="49.5%"> <img src="/home/gnd0/ros2tutorial/camera_calibration/img/monocular_camera_calibrate_3.png" width="49.5%"> 
+<img src="./img/monocular_camera_calibrate_2.png" width="49.5%"> <img src="./img/monocular_camera_calibrate_3.png" width="49.5%"> 
 
 <img src="./img/monocular_camera_calibrate_4.png" width="49.5%"> <img src="./img/monocular_camera_calibrate_5.png" width="49.5%"> 
 
