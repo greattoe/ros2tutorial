@@ -61,5 +61,13 @@
 
 
 
+[**랜케이블을 이용한 라즈베리파이 - PC 직접연결** ](./md/how2connect2RPi_with_utp_cable.md)
+
+
+
+
+
+
+
 
 
