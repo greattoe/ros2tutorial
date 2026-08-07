@@ -28,6 +28,8 @@ sudo apt install rpi-imager
 
 
 
+
+
 #### 기타설정
 
 **업데이트**
@@ -235,27 +237,64 @@ sudo apt install libudev-dev
 
 
 
-**워크스페이스 생성 및 소스코드 복제를 위한 경로 변경**
+**워크스페이스 생성 **및 소스코드 의존성 설치를 위한 경로 변경
 
 ```bash
-$ mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws/src
+$ mkdir -p ~/turtlebot3_ws/src && cd ~/turtlebot3_ws
+```
+
+
+
+**필요한 의존성을 설치**
+
+```
+rosdep install --from-paths src --ignore-src -r -y
+```
+
+```
+rosdep init
+```
+
+```
+rosdep update
+```
+
+
+
+**소스코드 복제를 위한 경로 변경**
+
+```
+~/turtlebot3_ws/src
 ```
 
 
 
 **터틀봇3 패키지 소스코드 복제**
 
-```bash
+```
  git clone -b humble https://github.com/ROBOTIS-GIT/turtlebot3.git
 ```
 
-**Lidar(구형) 드라이버 소스코드 복제**
+
+
+**Lidar드라이버`hls_lfcd_lds_driver` 소스코드 복제**
+
+```
+git clone -b humble \
+https://github.com/ROBOTIS-GIT/hls_lfcd_lds_driver.git
+```
+
+
+
+**Lidar드라이버`ld08_driver` 소스코드 복제**
 
 ```bash
 git clone -b humble https://github.com/ROBOTIS-GIT/ld08_driver.git
 ```
 
-**Lidar(신형) 드라이버 소스코드 복제**
+
+
+**Lidar드라이버`coin_d4` 소스코드 복제**
 
 ```bash
 git clone -b humble https://github.com/ROBOTIS-GIT/coin_d4_driver

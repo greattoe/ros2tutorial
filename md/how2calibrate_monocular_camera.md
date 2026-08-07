@@ -45,10 +45,7 @@ v4l2-ctl -d /dev/video0 --set-parm=10
 네임스페이스( /camera),  해상도 (320 x 240)을 적용하여 `v4l2_camera` 구동
 
 ```bash
-ros2 run v4l2_camera v4l2_camera_node \
-  --ros-args \
-  -r __ns:=/camera \
-  -p image_size:="[320,240]"
+ros2 run v4l2_camera v4l2_camera_node --ros-args -r __ns:=/camera -p image_size:="[320,240]"
 ```
 
 
@@ -68,6 +65,33 @@ average rate: 11.130
 average rate: 11.189
 	min: 0.071s max: 0.127s std dev: 0.01215s window: 60
 ```
+
+
+
+라즈베리파이에 `v4l2_camera`를 320 x 240 해상도에, framerate 10fps로 구동하는 shell script 작성을 위해 `ssh`연결
+
+```
+ssh pi@[라즈베리파이 IP주소]
+```
+
+스크립트 작성
+
+```
+nano cam.sh
+```
+
+```
+v4l2-ctl -d /dev/video0 --set-parm=10
+ros2 run v4l2_camera v4l2_camera_node --ros-args -r __ns:=/camera -p image_size:="[320,240]"
+```
+
+스크립트 실행
+
+```
+sh cam.sh
+```
+
+
 
 
 
@@ -108,13 +132,7 @@ k:
 **PC**`camera_calibration`노드 실행
 
 ```
-ros2 run camera_calibration cameracalibrator \
-  --size 8x6 \
-  --square 0.023 \
-  --camera_name mmal_service_16.1 \
-  --ros-args \
-  -r image:=/camera/image_raw \
-  -r camera_info:=/camera/camera_info
+ros2 run camera_calibration cameracalibrator--size 8x6--square 0.023 --camera_name mmal_service_16.1 --ros-args -r image:=/camera/image_raw -r camera_info:=/camera/camera_info
 ```
 
 
