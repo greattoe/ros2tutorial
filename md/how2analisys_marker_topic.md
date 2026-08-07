@@ -123,18 +123,19 @@ AR 마커는 일단 자신이 몇 번 마커인지에 대한 정보를 담고 �
         <td width="50%">마커와 카메라의 거리 2(m)</td>
     </tr>
     <tr align="center">
-        <td><img src="../img/ar_marker/position_z/mesure1m.png" /></td>
-        <td><img src="../img/ar_marker/position_z/mesure2m.png" /></td>
+        <td><img src="./img/ar_marker/position_z/mesure1m.png" /></td>
+        <td><img src="./img/ar_marker/position_z/mesure2m.png" /></td>
     </tr>
     <tr align="center">
         <td width="50%">마커와 카메라의 거리 3(m)</td>
         <td width="50%">마커와 카메라의 거리 4(m)</td>
     </tr>
     <tr align="center">
-        <td><img src="../img/ar_marker/position_z/mesure3m.png" /></td>
-        <td><img src="../img/ar_marker/position_z/mesure4m.png" /></td>
+        <td><img src="./img/ar_marker/position_z/mesure3m.png" /></td>
+        <td><img src="./img/ar_marker/position_z/mesure4m.png" /></td>
     </tr>
 </table>
+
 
 마커의 position.x 값의 변화 발생을 기대하며 실험에 임했으나, 결과는 엉뚱하게도  position.z 값이 x축의 거리에 비례하는 뚜렷한 변화를 나타냈다.
 
@@ -151,11 +152,12 @@ y축 방향 거리변화에 대한 토픽의 변화를 살펴보기위해 우선
         <td width="33%">position.x > 0</td>
     </tr>
     <tr align="center">
-        <td><img src="../img/ar_marker/position_x/position_x_lt0.png" /></td>
-        <td><img src="../img/ar_marker/position_x/position_x_eq0.png" /></td>
-        <td><img src="../img/ar_marker/position_x/position_x_gt0.png" /></td>
+        <td><img src="./img/ar_marker/position_x/position_x_lt0.png" /></td>
+        <td><img src="./img/ar_marker/position_x/position_x_eq0.png" /></td>
+        <td><img src="./img/ar_marker/position_x/position_x_gt0.png" /></td>
     </tr>
 </table>
+
 
 또 한 번 예상을 뒤엎고 position.y 가 아닌 position.x 에서 변화가 관찰됬다.
 
@@ -172,11 +174,12 @@ y축 방향 거리변화에 대한 토픽의 변화를 살펴보기위해 우선
         <td width="33%">orientation.z > 0</td>
     </tr>
     <tr align="center">
-        <td><img src="../img/ar_marker/orientation_z/orientation_z_lt0.png" /></td>
-        <td><img src="../img/ar_marker/orientation_z/orientation_z_eq0.png" /></td>
-        <td><img src="../img/ar_marker/orientation_z/orientation_z_gt0.png" /></td>
+        <td><img src="./img/ar_marker/orientation_z/orientation_z_lt0.png" /></td>
+        <td><img src="./img/ar_marker/orientation_z/orientation_z_eq0.png" /></td>
+        <td><img src="./img/ar_marker/orientation_z/orientation_z_gt0.png" /></td>
     </tr>
 </table>
+
 
 
 
@@ -184,23 +187,23 @@ y축 방향 거리변화에 대한 토픽의 변화를 살펴보기위해 우선
 
 실험 전 AR 마커의 축 방향은 `x` 축이 마커 전방을 향하는 방향( case A )일 것이라 예측했었지만, 실험 결과로 보아  `z` 축이 마커의 전방을 향하는 방향( 일반적인 경우의 `x` 축 방향 )이라고 생각할 수 밖에 없었다. 이를 기준으로 가능한 경우(`z` 축이 마커 전방을 향하는 경우 ) 중 나머지 두 축의 +방향( 값이 증가하는 방향 )이 아래( 지면 )를 향하는 경우는 일단 제외하고 남은 두 가지 경우( case B & C )를 상정하였다. 
 
-<p align="center"><img src="../img/marker_pose_x.png" width="32%" /><img src="../img/marker_pose_o.png" width="32%" /><img src="../img/marker_pose2.png" width="32%" /></p>
+<p align="center"><img src="./img/marker_pose_x.png" width="32%" /><img src="../img/marker_pose_o.png" width="32%" /><img src="./img/marker_pose2.png" width="32%" /></p>
 
 토픽 `/ar_pose_marker` 를 `subscribe` 하여 구한 `pose.orientation.x, y, z, w` 를 `tf.transform.euler_from_quaternion` 함수에 매개변수로 전달하고 그 리턴값 `roll` , `pitch` , `yaw` 를 화면에 출력하는 코드를 작성하여 실험한 결과 `Θ` 값에 가까운 결과는 `pitch` 값이었다. 
 
 따라서 위 그림의 case C 가 실제 AR Marker 의 축방향이다. 이것을 기준으로 수직 벽에 부탁된 AR 마커와 마주보는 로봇의 x, y, z축으 방향은 아래 그림과 같다.
 
-<img src="../img/tf_marker.png">
+<img src="./img/tf_marker.png">
 
 아래는 위 그림과 같은 상황에서의 rviz 화면이다. AR Marker를 `fixed frame` 으로 설정하여 바닥에 마커가 나타나고, 카메라가 허공에서 아래를 내려보는 방향으로 표현되었다.
 
-![](../img/ar_marker_rviz1.png)
+![](./img/ar_marker_rviz1.png)
 
 이제 마커와 로봇사이의 거리를 구해야 하는데,  `/ar_pose_marker` 토픽에서의  `position.z` 를 AR Marker 와 로봇 사이의 거리로 상정한 실험에서 가장 근사한 결과를 얻을 수 있었다.  
 
 아래 그림에 이 때의 AR Marker 와 robot 사이의 거리, 각도 등, 위치관계를 정리해 보았다.
 
-![](../img/robot_n_marker.png)
+![](./img/robot_n_marker.png)
 
 **q** ( pose.pose.orientaion.**x**, pose.pose.orientaion.**y**, pose.pose.orientaion.**z**, pose.pose.orientaion.**w** )
 
@@ -210,7 +213,7 @@ y축 방향 거리변화에 대한 토픽의 변화를 살펴보기위해 우선
 
 아래는 비슷한 위치관계에 있는 경우의 rviz 화면이다.
 
-![](../img/ar_marker_rviz2.png)
+![](./img/ar_marker_rviz2.png)
 
 
 
