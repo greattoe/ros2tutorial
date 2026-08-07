@@ -187,7 +187,7 @@ y축 방향 거리변화에 대한 토픽의 변화를 살펴보기위해 우선
 
 실험 전 AR 마커의 축 방향은 `x` 축이 마커 전방을 향하는 방향( case A )일 것이라 예측했었지만, 실험 결과로 보아  `z` 축이 마커의 전방을 향하는 방향( 일반적인 경우의 `x` 축 방향 )이라고 생각할 수 밖에 없었다. 이를 기준으로 가능한 경우(`z` 축이 마커 전방을 향하는 경우 ) 중 나머지 두 축의 +방향( 값이 증가하는 방향 )이 아래( 지면 )를 향하는 경우는 일단 제외하고 남은 두 가지 경우( case B & C )를 상정하였다. 
 
-<p align="center"><img src="./img/marker_pose_x.png" width="32%" /><img src="../img/marker_pose_o.png" width="32%" /><img src="./img/marker_pose2.png" width="32%" /></p>
+<p align="center"><img src="./img/marker_pose_x.png" width="32%" /><img src="./img/marker_pose_x.png" width="32%" /><img src="./img/marker_pose2.png" width="32%" /></p>
 
 토픽 `/ar_pose_marker` 를 `subscribe` 하여 구한 `pose.orientation.x, y, z, w` 를 `tf.transform.euler_from_quaternion` 함수에 매개변수로 전달하고 그 리턴값 `roll` , `pitch` , `yaw` 를 화면에 출력하는 코드를 작성하여 실험한 결과 `Θ` 값에 가까운 결과는 `pitch` 값이었다. 
 
@@ -328,7 +328,7 @@ if __name__ == '__main__':
 3번 마커를 사용할 경우 다음과 같이 실행한다.
 
 ```bash
-$ rosrun ar_marker pub_marker_pose.py 3
+$ ros2 run ar_marker pub_marker_pose.py 3
 ```
 
 
